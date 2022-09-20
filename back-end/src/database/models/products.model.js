@@ -9,11 +9,16 @@ const products = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    quantity: {
-      type: DataTypes.INTEGER,
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    urlImage: {
+      type: DataTypes.STRING,
       allowNull: false,
     }
-  }, { timestamps: false });
+  }, { timestamps: false,
+       underscored: true, });
 
   Products.associate = (models) => {
     Products.hasMany(models.salesProducts, {
