@@ -18,4 +18,9 @@ productsRouter.get(
   productsController.getByName,
 );
 
+productsRouter.get(
+  '/products/:id',
+  productsController.getById,
+);
+
 module.exports = productsRouter;

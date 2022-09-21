@@ -46,6 +46,12 @@ const productsService = {
 
     return product;
   },
+
+  getById: async (id) => {
+    const product = await products.findOne({ where: { id } });
+
+    return product;
+  },
 };
 
 module.exports = productsService;

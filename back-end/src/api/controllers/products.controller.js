@@ -37,6 +37,18 @@ const productsController = {
 
     res.status(200).json(product);
    },
+
+   getById: async (req, res) => {
+    const { authorization } = req.headers;
+
+    validateToken(authorization);
+
+    const { id } = req.params;
+
+    const product = await productsService.getById(id);
+
+    res.status(200).json(product);
+   },
 };
 
 module.exports = productsController;
