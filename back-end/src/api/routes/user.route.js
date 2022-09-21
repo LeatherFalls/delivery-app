@@ -28,4 +28,9 @@ userRouter.get(
   userController.getByName
 );
 
+userRouter.delete(
+  '/users/:id',
+  userController.delete
+);
+
 module.exports = userRouter;

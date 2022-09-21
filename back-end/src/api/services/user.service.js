@@ -1,6 +1,6 @@
 const { users } = require('../../database/models');
 const md5 = require('md5');
-const generateToken = require('./auth.service');
+const { generateToken } = require('./auth.service');
 const { Op } = require('sequelize');
 
 const userService = {
@@ -23,7 +23,7 @@ const userService = {
     return token;
   },
 
-  register: async (name, email, password, role) => {
+  register: async (name, email, password) => {
     const user = await users.findOne({ where: { email } });
 
     if (user) {
@@ -34,14 +34,14 @@ const userService = {
       name,
       email,
       password: md5(password),
-      role,
+      role: "customer",
     });
-
+    
     const token = generateToken({
       email: newUser.email,
       role: newUser.role 
     });
-
+    
     return token;
   },
   
@@ -75,6 +75,16 @@ const userService = {
     });
 
     return user;
+  },
+
+  delete: async (id) => {
+    const user = await users.findOne({ where: { id } });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    await users.destroy({ where: { id } });
   },
 }
 

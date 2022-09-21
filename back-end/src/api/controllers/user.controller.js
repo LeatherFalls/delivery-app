@@ -1,8 +1,10 @@
 const userService = require('../services/user.service');
+const validateRegister = require('../services/auth.service').validateRegister;
+const validateLogin = require('../services/auth.service').validateLogin;
 
 const userController = {
   login: async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = validateLogin(req.body);
 
     const token = await userService.login(email, password);
 
@@ -10,9 +12,9 @@ const userController = {
   },
 
   register: async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = validateRegister(req.body);
 
-    const token = await userService.register(name, email, password, role);
+    const token = await userService.register(name, email, password );
 
     return res.status(201).json({ token });
   },
@@ -40,6 +42,14 @@ const userController = {
 
     return res.status(200).json(user);
   },
+
+  delete: async (req, res) => {
+    const { id } = req.params;
+
+    await userService.delete(id);
+
+    return res.status(204).json();
+  }
 };
 
 module.exports = userController;
