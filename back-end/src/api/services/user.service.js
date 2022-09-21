@@ -1,14 +1,16 @@
-const { users } = require('../../database/models');
 const md5 = require('md5');
-const { generateToken } = require('./auth.service');
 const { Op } = require('sequelize');
+const { users } = require('../../database/models');
+const { generateToken } = require('./auth.service');
+
+const NOT_FOUND = 'User not found';
 
 const userService = {
   login: async (email, password) => {
     const user = await users.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error(NOT_FOUND);
     }
 
     if (md5(password) !== user.password) {
@@ -17,7 +19,7 @@ const userService = {
 
     const token = generateToken({
       email: user.email,
-      role: user.role 
+      role: user.role,
     });
 
     return token;
@@ -34,12 +36,12 @@ const userService = {
       name,
       email,
       password: md5(password),
-      role: "customer",
+      role: 'customer',
     });
     
     const token = generateToken({
       email: newUser.email,
-      role: newUser.role 
+      role: newUser.role,
     });
     
     return token;
@@ -54,11 +56,11 @@ const userService = {
   getById: async (id) => {
     const user = await users.findOne({
       where: { id },
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
    });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error(NOT_FOUND);
     }
 
     return user;
@@ -68,10 +70,10 @@ const userService = {
     const user = await users.findOne({
       where: {
         name: {
-          [Op.like]: `%${name}%`
-        }
+          [Op.like]: `%${name}%`,
+        },
      },
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
     });
 
     return user;
@@ -81,16 +83,16 @@ const userService = {
     const user = await users.findOne({ where: { id } });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error(NOT_FOUND);
     }
 
     const updatedUser = await users.update(
       { 
-        name: name ? name : user.name,
-        email: email ? email : user.email,
-        password: password ? password : user.password,
+        name: name || user.name,
+        email: email || user.email,
+        password: password || user.password,
       },
-      { where: { id } }
+      { where: { id } },
     );
 
     return updatedUser;
@@ -100,11 +102,11 @@ const userService = {
     const user = await users.findOne({ where: { id } });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error(NOT_FOUND);
     }
 
     await users.destroy({ where: { id } });
   },
-}
+};
 
 module.exports = userService;

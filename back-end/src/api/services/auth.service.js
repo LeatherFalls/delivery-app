@@ -15,7 +15,7 @@ const validateLogin = (data) => {
   if (error) throw error;
 
   return value;
-}
+};
 
 const validateRegister = (data) => {
   const schema = Joi.object({
@@ -29,7 +29,7 @@ const validateRegister = (data) => {
   if (error) throw error;
 
   return value;
-}
+};
 
 const generateToken = (data) => {
   const token = jwt.sign(
@@ -49,7 +49,7 @@ const validateToken = (token) => {
       return decoded;
     } catch (error) {
       const e = new Error('Invalid token');
-      e.name = 'Unauthorized'
+      e.name = 'Unauthorized';
       throw e;
     }
 };
@@ -57,5 +57,5 @@ module.exports = {
   generateToken,
   validateToken,
   validateLogin,
-  validateRegister
+  validateRegister,
 };

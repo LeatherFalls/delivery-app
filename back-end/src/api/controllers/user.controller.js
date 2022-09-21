@@ -1,6 +1,6 @@
 const userService = require('../services/user.service');
-const validateRegister = require('../services/auth.service').validateRegister;
-const validateLogin = require('../services/auth.service').validateLogin;
+const { validateRegister } = require('../services/auth.service');
+const { validateLogin } = require('../services/auth.service');
 
 const userController = {
   login: async (req, res) => {
@@ -14,7 +14,7 @@ const userController = {
   register: async (req, res) => {
     const { name, email, password } = validateRegister(req.body);
 
-    const token = await userService.register(name, email, password );
+    const token = await userService.register(name, email, password);
 
     return res.status(201).json({ token });
   },
@@ -59,7 +59,7 @@ const userController = {
     await userService.delete(id);
 
     return res.status(204).json();
-  }
+  },
 };
 
 module.exports = userController;

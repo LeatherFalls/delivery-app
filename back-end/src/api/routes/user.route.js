@@ -3,39 +3,41 @@ const userController = require('../controllers/user.controller');
 
 const userRouter = Router();
 
+const USER_ID = '/users/:id';
+
 userRouter.post(
   '/login',
-  userController.login
+  userController.login,
 );
 
 userRouter.post(
   '/register',
-  userController.register
+  userController.register,
 );
 
 userRouter.get(
   '/users',
-  userController.getAll
+  userController.getAll,
 );
 
 userRouter.get(
-  '/users/:id',
-  userController.getById
+  USER_ID,
+  userController.getById,
 );
 
 userRouter.get(
   '/users/name/search',
-  userController.getByName
+  userController.getByName,
 );
 
 userRouter.put(
-  '/users/:id',
-  userController.update
+  USER_ID,
+  userController.update,
 );
 
 userRouter.delete(
-  '/users/:id',
-  userController.delete
+  USER_ID,
+  userController.delete,
 );
 
 module.exports = userRouter;
