@@ -23,6 +23,20 @@ const productsController = {
 
     res.status(200).json(allProducts);
    },
+
+   getByName: async (req, res) => {
+    const { authorization } = req.headers;
+
+    validateToken(authorization);
+
+    const { name } = req.query;
+
+    const lowerName = name.toLowerCase();
+
+    const product = await productsService.getByName(lowerName);
+
+    res.status(200).json(product);
+   },
 };
 
 module.exports = productsController;

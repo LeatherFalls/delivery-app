@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { Op } = require('sequelize');
 const { products } = require('../../database/models');
 
 const productsService = {
@@ -32,6 +33,18 @@ const productsService = {
     const allProducts = await products.findAll();
 
     return allProducts;
+  },
+
+  getByName: async (name) => {
+    const product = await products.findOne({
+      where: {
+        name: {
+          [Op.like]: `%${name}%`,
+        },
+     },
+    });
+
+    return product;
   },
 };
 

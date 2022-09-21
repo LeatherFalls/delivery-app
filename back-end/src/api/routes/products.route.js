@@ -13,4 +13,9 @@ productsRouter.post(
   productsController.create,
 );
 
+productsRouter.get(
+  '/products/name/search',
+  productsController.getByName,
+);
+
 module.exports = productsRouter;
