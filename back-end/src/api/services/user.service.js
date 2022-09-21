@@ -1,19 +1,17 @@
-const db = require('../../database/models');
-const bcrypt = require('bcrypt');
+const { users } = require('../../database/models');
+const md5 = require('md5');
 const generateToken = require('./auth.service');
 
 const userService = {
   login: async (email, password) => {
-    const user = await db.users.findOne({ where: { email } });
+    const user = await users.findOne({ where: { email } });
 
     if (!user) {
       throw new Error('User not found');
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    
-    if (!isMatch) {
-      throw new Error('Incorrect password');
+    if (md5(password) !== user.password) {
+      throw new Error('Incorrect email or password');
     }
 
     const token = generateToken({

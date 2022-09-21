@@ -1,5 +1,5 @@
 const users = ( sequelize, DataTypes ) => {
-  const Users = sequelize.define('users', {
+  const users = sequelize.define('users', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -26,18 +26,18 @@ const users = ( sequelize, DataTypes ) => {
     timestamps: false,
   } );
 
-  Users.associate = ( models ) => {
-    Users.hasMany(models.sales, {
+  users.associate = ( models ) => {
+    users.hasMany(models.sales, {
       foreignKey: 'userId',
-      as: 'sales',
+      as: 'user',
     } );
-    Users.hasMany(models.sales, { 
+    users.hasMany(models.sales, { 
       foreignKey: 'sellerId',
-      as: 'sales', 
+      as: 'seller', 
     } );
   };
 
-  return Users;
+  return users;
 };
 
 module.exports = users;
