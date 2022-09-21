@@ -77,6 +77,25 @@ const userService = {
     return user;
   },
 
+  update: async (id, { name, email, password }) => {
+    const user = await users.findOne({ where: { id } });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const updatedUser = await users.update(
+      { 
+        name: name ? name : user.name,
+        email: email ? email : user.email,
+        password: password ? password : user.password,
+      },
+      { where: { id } }
+    );
+
+    return updatedUser;
+  },
+
   delete: async (id) => {
     const user = await users.findOne({ where: { id } });
 

@@ -43,6 +43,16 @@ const userController = {
     return res.status(200).json(user);
   },
 
+  update: async (req, res) => {
+    const { id } = req.params;
+
+    const { name, email, password } = req.body;
+
+    await userService.update(id, { name, email, password });
+
+    return res.status(200).json({ message: 'User updated!' });
+  },
+
   delete: async (req, res) => {
     const { id } = req.params;
 

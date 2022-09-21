@@ -28,6 +28,11 @@ userRouter.get(
   userController.getByName
 );
 
+userRouter.put(
+  '/users/:id',
+  userController.update
+);
+
 userRouter.delete(
   '/users/:id',
   userController.delete
