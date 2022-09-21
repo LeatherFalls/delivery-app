@@ -8,6 +8,14 @@ const userController = {
 
     return res.status(200).json({ token });
   },
+
+  register: async (req, res) => {
+    const { name, email, password, role } = req.body;
+
+    const token = await userService.register(name, email, password, role);
+
+    return res.status(201).json({ token });
+  },
 };
 
 module.exports = userController;
