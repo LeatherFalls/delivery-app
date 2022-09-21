@@ -21,7 +21,25 @@ const userController = {
     const allUsers = await userService.getAll();
 
     return res.status(200).json(allUsers);
-  }
+  },
+
+  getById: async (req, res) => {
+    const { id } = req.params;
+
+    const user = await userService.getById(id);
+
+    return res.status(200).json(user);
+  },
+
+  getByName: async (req, res) => {
+    const { name } = req.query;
+
+    const lowerName = name.toLowerCase();
+
+    const user = await userService.getByName(lowerName);
+
+    return res.status(200).json(user);
+  },
 };
 
 module.exports = userController;

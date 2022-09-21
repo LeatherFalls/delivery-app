@@ -18,4 +18,14 @@ userRouter.get(
   userController.getAll
 );
 
+userRouter.get(
+  '/users/:id',
+  userController.getById
+);
+
+userRouter.get(
+  '/users/name/search',
+  userController.getByName
+);
+
 module.exports = userRouter;

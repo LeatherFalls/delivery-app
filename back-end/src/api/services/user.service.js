@@ -1,6 +1,7 @@
 const { users } = require('../../database/models');
 const md5 = require('md5');
 const generateToken = require('./auth.service');
+const { Op } = require('sequelize');
 
 const userService = {
   login: async (email, password) => {
@@ -45,10 +46,36 @@ const userService = {
   },
   
   getAll: async () => {
-    const allUsers = await users.findAll();
+    const allUsers = await users.findAll({ attributes: { exclude: ['password'] } });
 
     return allUsers;
-  }
+  },
+
+  getById: async (id) => {
+    const user = await users.findOne({
+      where: { id },
+      attributes: { exclude: ['password'] }
+   });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
+  },
+
+  getByName: async (name) => {
+    const user = await users.findOne({
+      where: {
+        name: {
+          [Op.like]: `%${name}%`
+        }
+     },
+      attributes: { exclude: ['password'] }
+    });
+
+    return user;
+  },
 }
 
 module.exports = userService;
