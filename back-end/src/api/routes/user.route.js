@@ -13,4 +13,9 @@ userRouter.post(
   userController.register
 );
 
+userRouter.get(
+  '/users',
+  userController.getAll
+);
+
 module.exports = userRouter;

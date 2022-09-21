@@ -43,6 +43,12 @@ const userService = {
 
     return token;
   },
+  
+  getAll: async () => {
+    const allUsers = await users.findAll();
+
+    return allUsers;
+  }
 }
 
 module.exports = userService;
