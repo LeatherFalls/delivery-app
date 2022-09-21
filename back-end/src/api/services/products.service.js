@@ -52,6 +52,37 @@ const productsService = {
 
     return product;
   },
+
+  update: async (id, { name, price, urlImage }) => {
+    const product = await products.findOne({ where: { id } });
+
+    if (!product) {
+      throw new Error('Product does not exist');
+    }
+
+    const updatedProduct = await products.update(
+      {
+        name: name || product.name,
+        price: price || product.price,
+        urlImage: urlImage || product.urlImage,
+      },
+      { where: { id } },
+    );
+
+    return updatedProduct;
+  },
+
+  delete: async (id) => {
+    const product = await products.findOne({ where: { id } });
+
+    if (!product) {
+      throw new Error('Product does not exist');
+    }
+
+    const deletedProduct = await products.destroy({ where: { id } });
+
+    return deletedProduct;
+  },
 };
 
 module.exports = productsService;

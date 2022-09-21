@@ -49,6 +49,32 @@ const productsController = {
 
     res.status(200).json(product);
    },
+
+   update: async (req, res) => {
+    const { authorization } = req.headers;
+
+    validateToken(authorization);
+
+    const { id } = req.params;
+
+    const { name, price, urlImage } = productsService.validateProducts(req.body);
+
+    const product = await productsService.update(id, { name, price, urlImage });
+
+    res.status(200).json(product);
+   },
+
+   delete: async (req, res) => {
+    const { authorization } = req.headers;
+
+    validateToken(authorization);
+
+    const { id } = req.params;
+
+    await productsService.delete(id);
+
+    res.sendStatus(204);
+   },
 };
 
 module.exports = productsController;
