@@ -34,7 +34,7 @@ const userService = {
       name,
       email,
       password: md5(password),
-      role: 'customer',
+      role,
     });
 
     const token = generateToken({
