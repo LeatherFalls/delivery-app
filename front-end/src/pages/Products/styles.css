@@ -1,0 +1,27 @@
+.products-main {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 3rem;
+  width: 100vw;
+}
+
+.search-and-profile {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.search-and-profile img {
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.products-text {
+  border-bottom: 1px solid rgb(116, 198, 149);
+  color: rgb(50, 50, 50);
+  margin: 0 0 2rem 2rem;
+  padding-bottom: 0.5rem;
+  width: fit-content;
+}
