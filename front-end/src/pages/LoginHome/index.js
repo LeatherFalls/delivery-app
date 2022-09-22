@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import login from '../../services/api';
-import redirectUser from '../../helper';
+import { redirectUser, validationButton } from '../../helper';
 import loginImage from '../../assets/images/signin.jpg';
 import google from '../../assets/images/google.svg';
 import facebook from '../../assets/images/facebook.svg';
@@ -13,19 +13,13 @@ export default function LoginHome() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const validateUserExistence = async () => {
+  const userLogin = async () => {
     try {
       const response = await login(email, password);
       redirectUser(response.role, navigate);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const validationButton = () => {
-    const emailRegex = /\S+@\S+\.\S+/;
-    const minPassword = 6;
-    return ((emailRegex.test(email)) && (password.length >= minPassword));
   };
 
   return (
@@ -51,9 +45,9 @@ export default function LoginHome() {
           type="button"
           data-testid="common_login__button-login"
           className="login-button"
-          disabled={ !validationButton() }
+          disabled={ !validationButton(email, password) }
           // className={ validationButton() ? 'login-button' : 'login-button-disabled' }
-          onClick={ validateUserExistence }
+          onClick={ userLogin }
         >
           Sign In
         </button>

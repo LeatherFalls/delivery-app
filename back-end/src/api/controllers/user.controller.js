@@ -16,7 +16,7 @@ const userController = {
 
     const token = await userService.register(name, email, password);
 
-    return res.status(201).json({ token });
+    return res.status(201).json(token);
   },
 
   getAll: async (_req, res) => {

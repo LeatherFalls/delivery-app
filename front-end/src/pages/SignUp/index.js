@@ -1,28 +1,38 @@
-import React, { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { redirectUser, validateName } from '../../helper';
+import { register } from '../../services/api';
 import signUpImage from '../../assets/images/signup.jpg';
 import './styles.css';
 
 export default function SignUp() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/register')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+
+  const registerUser = async () => {
+    try {
+      const response = await register(name, email, password);
+
+      console.log(response);
+      redirectUser(response.role, navigate);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="container">
       <div className="content">
-        <Link to="/login" className="back-to-login">
+        <button
+          type="button"
+          onClick={ () => navigate('/products') }
+          className="back-to-login"
+        >
           {'<'}
-        </Link>
+        </button>
         <div className="container-signup">
           <h2>Sign Up</h2>
         </div>
@@ -33,22 +43,26 @@ export default function SignUp() {
           type="text"
           placeholder="Name"
           data-testid="common_register__input-name"
+          onChange={ (e) => setName(e.target.value) }
         />
         <input
           type="email"
           placeholder="Enter Email Id"
           data-testid="common_register__input-email"
+          onChange={ (e) => setEmail(e.target.value) }
         />
         <input
           type="password"
           placeholder="Enter Password"
           data-testid="common_register__input-password"
+          onChange={ (e) => setPassword(e.target.value) }
         />
         <button
           type="button"
-          onClick={ () => navigate('/products') }
           data-testid="common_register__button-register"
           className="login-button"
+          disabled={ !validateName(name, email, password) }
+          onClick={ registerUser }
         >
           Sign Up
         </button>

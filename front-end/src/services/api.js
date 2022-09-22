@@ -18,4 +18,20 @@ const login = async (email, password) => {
   return response.data;
 };
 
+export const register = async (name, email, password) => {
+  const response = await api({
+    method: 'post',
+    url: '/register',
+    data: {
+      name,
+      email,
+      password,
+    },
+  });
+
+  console.log(response.data);
+
+  return response.data;
+};
+
 export default login;
