@@ -1,34 +1,76 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import signUpImage from '../../assets/images/signup.jpg';
 import './styles.css';
 
 export default function SignUp() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios.get('http://localhost:3001/register')
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
   return (
     <div className="container">
       <div className="content">
-        <h2
-          className="back-to-login"
-          onClick={ () => navigate('/') }
-        >
+        <Link to="/login" className="back-to-login">
           {'<'}
-        </h2>
+        </Link>
         <div className="container-signup">
           <h2>Sign Up</h2>
         </div>
       </div>
       <img src={ signUpImage } alt="Sign Up" className="login-image" />
       <div className="login-inputs">
-        <input type="text" placeholder="Enter Email Id" />
-        <input type="password" placeholder="Enter Password" />
-        <input type="password" placeholder="Confirm Password" />
-        <button type="button" onClick={ () => navigate('/products') }>Sign Up</button>
+        <input
+          type="text"
+          placeholder="Name"
+          data-testid="common_register__input-name"
+        />
+        <input
+          type="email"
+          placeholder="Enter Email Id"
+          data-testid="common_register__input-email"
+        />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          data-testid="common_register__input-password"
+        />
+        <button
+          type="button"
+          onClick={ () => navigate('/products') }
+          data-testid="common_register__button-register"
+        >
+          Sign Up
+        </button>
+        <span
+          className="error-message"
+          data-testid="common_login__element-invalid-email"
+        >
+          Message
+        </span>
         <p>
           Already have An Account?
-          <span onClick={ () => navigate('/') }> Sign In</span>
+          <Link
+            to="/login"
+          >
+            Sign in
+          </Link>
         </p>
+        <span
+          className="error-message"
+          data-testid="common_register__element-invalid_register"
+        >
+          Message
+        </span>
       </div>
     </div>
   );

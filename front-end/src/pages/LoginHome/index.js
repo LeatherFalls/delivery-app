@@ -46,7 +46,7 @@ export default function LoginHome() {
         </button>
         <p>
           Dont have An Account?
-          <Link to="/sign-up" data-testid="common_login__button-register"> Sign Up</Link>
+          <Link to="/register" data-testid="common_login__button-register"> Sign Up</Link>
         </p>
       </div>
       <div className="or-login">
