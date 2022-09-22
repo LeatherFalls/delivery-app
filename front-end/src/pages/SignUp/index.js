@@ -48,22 +48,19 @@ export default function SignUp() {
           type="button"
           onClick={ () => navigate('/products') }
           data-testid="common_register__button-register"
+          className="login-button"
         >
           Sign Up
         </button>
-        <span
-          className="error-message"
-          data-testid="common_login__element-invalid-email"
-        >
-          Message
-        </span>
         <p>
           Already have An Account?
-          <Link
-            to="/login"
+          <button
+            className="register-button"
+            type="button"
+            onClick={ () => navigate('/login') }
           >
             Sign in
-          </Link>
+          </button>
         </p>
         <span
           className="error-message"

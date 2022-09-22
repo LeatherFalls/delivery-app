@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import loginImage from '../../assets/images/signin.jpg';
 import google from '../../assets/images/google.svg';
@@ -27,7 +27,7 @@ export default function LoginHome() {
       <img src={ loginImage } alt="Login" className="login-image" />
       <div className="login-inputs">
         <input
-          type="text"
+          type="email"
           placeholder="Enter Email Id"
           data-testid="common_login__input-email"
         />
@@ -38,15 +38,21 @@ export default function LoginHome() {
         />
         <button
           type="button"
-          disabled
-          onClick={ () => navigate('/products') }
           data-testid="common_login__button-login"
+          className="login-button"
         >
           Sign In
         </button>
         <p>
           Dont have An Account?
-          <Link to="/register" data-testid="common_login__button-register"> Sign Up</Link>
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+            onClick={ () => navigate('/register') }
+            className="register-button"
+          >
+            Sign Up
+          </button>
         </p>
       </div>
       <div className="or-login">
