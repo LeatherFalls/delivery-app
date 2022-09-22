@@ -10,11 +10,15 @@ const userService = {
     const user = await users.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error(NOT_FOUND);
+      const error = new Error(NOT_FOUND);
+      error.name = 'NotFoundError';
+      throw error;
     }
 
     if (md5(password) !== user.password) {
-      throw new Error('Incorrect email or password');
+      const error = new Error('Incorrect email or password');
+      error.name = 'NotFoundError';
+      throw error;
     }
 
     const token = generateToken({
@@ -22,14 +26,16 @@ const userService = {
       role: user.role,
     });
 
-    return token;
+    return { token, role: user.role, name: user.name };
   },
 
   register: async (name, email, password) => {
     const user = await users.findOne({ where: { email } });
 
     if (user) {
-      throw new Error('User already registered');
+      const error = new Error('User already registered');
+      error.name = 'NotFoundError';
+      throw error;
     }
 
     const newUser = await users.create({

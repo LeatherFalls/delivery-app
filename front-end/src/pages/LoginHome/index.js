@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import login from '../../services/api';
+import redirectUser from '../../helper';
 import loginImage from '../../assets/images/signin.jpg';
 import google from '../../assets/images/google.svg';
 import facebook from '../../assets/images/facebook.svg';
@@ -9,15 +10,23 @@ import './styles.css';
 export default function LoginHome() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/api/v1/users')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const validateUserExistence = async () => {
+    try {
+      const response = await login(email, password);
+      redirectUser(response.role, navigate);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const validationButton = () => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    const minPassword = 6;
+    return ((emailRegex.test(email)) && (password.length >= minPassword));
+  };
 
   return (
     <div className="container">
@@ -30,16 +39,21 @@ export default function LoginHome() {
           type="email"
           placeholder="Enter Email Id"
           data-testid="common_login__input-email"
+          onChange={ (e) => setEmail(e.target.value) }
         />
         <input
           type="password"
           placeholder="Enter Password"
           data-testid="common_login__input-password"
+          onChange={ (e) => setPassword(e.target.value) }
         />
         <button
           type="button"
           data-testid="common_login__button-login"
           className="login-button"
+          disabled={ !validationButton() }
+          // className={ validationButton() ? 'login-button' : 'login-button-disabled' }
+          onClick={ validateUserExistence }
         >
           Sign In
         </button>
