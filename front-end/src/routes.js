@@ -10,7 +10,11 @@ function AppRoutes() {
       <Route path="/" element={ <Navigate to="/login" replace /> } />
       <Route path="/login" element={ <LoginHome /> } />
       <Route path="/register" element={ <SignUp /> } />
-      <Route path="/products" element={ <Products /> } />
+      <Route
+        path="/login/customer/products"
+        element={ <Navigate to="/customer/products" /> }
+      />
+      <Route path="/customer/products" element={ <Products /> } />
     </Routes>
   );
 }
