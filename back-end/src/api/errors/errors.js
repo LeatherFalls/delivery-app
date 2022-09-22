@@ -10,9 +10,6 @@ const errorMiddleware = (err, _req, res, _next) => {
     case 'NotFoundError':
       res.status(404).json({ message });
       break;
-    case 'SequelizeConnectionRefusedError':
-      res.status(503).end();
-      break;
     case 'AlreadyRegisteredError':
       res.status(409).json({ message });
       break;
