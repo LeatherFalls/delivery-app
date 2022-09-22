@@ -35,7 +35,7 @@
   padding: 0.5rem;
 }
 
-.login-inputs button {
+.login-button {
 
   /* background-color: rgb(255, 110, 64); */
   background-color: rgb(116, 198, 149);
@@ -121,6 +121,8 @@ p span {
   color: white;
 }
 
-.error-message {
-  display: none;
+.register-button {
+  background-color: transparent;
+  border: none;
+  color: rgb(116, 198, 149);
 }
