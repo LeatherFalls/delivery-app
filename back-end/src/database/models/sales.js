@@ -7,9 +7,11 @@ const sales = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     sellerId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     totalPrice: {
       type: DataTypes.DECIMAL(10, 2),
@@ -33,6 +35,8 @@ const sales = (sequelize, DataTypes) => {
     },
   }, {
     timestamps: false,
+    underscored: true,
+    tableName: 'sales',
   });
 
   sales.associate = (models) => {

@@ -16,6 +16,7 @@ module.exports = {
           model: 'users',
           key: 'id'
         },
+        field: 'user_id'
       },
       sellerId: {
         allowNull: false,

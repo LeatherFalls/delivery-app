@@ -18,7 +18,9 @@ const products = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, { timestamps: false,
-       underscored: true, });
+       underscored: true,
+       tableName: 'products',
+  });
 
   return products;
 };
