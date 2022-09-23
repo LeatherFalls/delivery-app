@@ -37,7 +37,7 @@
   padding: 1.3rem 2rem;
 }
 
-.footer-content img {
+.footer-content input {
   filter: invert();
   height: 1.5rem;
 }
