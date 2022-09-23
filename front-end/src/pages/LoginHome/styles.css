@@ -48,6 +48,15 @@
   text-align: center;
 }
 
+.login-button-disabled {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: gray;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .google-login, .facebook-login {
   border: none;
 }
