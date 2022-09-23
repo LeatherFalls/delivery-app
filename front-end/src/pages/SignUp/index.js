@@ -60,7 +60,9 @@ export default function SignUp() {
         <button
           type="button"
           data-testid="common_register__button-register"
-          className="login-button"
+          className={
+            validateName(name, email, password) ? 'login-button' : 'login-button-disabled'
+          }
           disabled={ !validateName(name, email, password) }
           onClick={ registerUser }
         >

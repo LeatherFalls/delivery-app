@@ -34,4 +34,16 @@ export const register = async (name, email, password) => {
   return response.data;
 };
 
+export const getProducts = async () => {
+  const response = await api({
+    method: 'get',
+    headers: {
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    url: '/products',
+  });
+
+  return response.data;
+};
+
 export default login;

@@ -19,6 +19,7 @@ function AppRoutes() {
         element={ <Navigate to="/customer/products" /> }
       />
       <Route path="/customer/products" element={ <Products /> } />
+      <Route path="/customer/orders" element={ <Products /> } />
     </Routes>
   );
 }
