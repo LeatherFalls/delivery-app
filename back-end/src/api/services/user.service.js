@@ -34,7 +34,7 @@ const userService = {
 
     if (user) {
       const error = new Error('User already registered');
-      error.name = 'NotFoundError';
+      error.name = 'AlreadyRegisteredError';
       throw error;
     }
 
@@ -50,7 +50,7 @@ const userService = {
       role: newUser.role,
     });
     
-    return token;
+    return { token, role: newUser.role, name: newUser.name };
   },
   
   getAll: async () => {

@@ -14,6 +14,10 @@ function AppRoutes() {
         path="/login/customer/products"
         element={ <Navigate to="/customer/products" /> }
       />
+      <Route
+        path="/register/customer/products"
+        element={ <Navigate to="/customer/products" /> }
+      />
       <Route path="/customer/products" element={ <Products /> } />
     </Routes>
   );
