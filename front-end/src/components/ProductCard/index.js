@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import hamburguer from '../../assets/images/hamburguer.png';
 import star from '../../assets/images/star-fav.svg';
 import './styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loading';
+import { getProducts } from '../../services/api';
 
 export default function ProductCard() {
   const [quantity, setQuantity] = useState(1);
+  const [produtos, setProdutos] = useState([]);
 
   const [loader, setRemoveLoader] = useState(false);
 
@@ -23,7 +24,18 @@ export default function ProductCard() {
 
   const aaa = 2000;
 
+  const products = async () => {
+    try {
+      const response = await getProducts();
+      console.log(response);
+      setProdutos(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
+    products();
     setTimeout(() => {
       setRemoveLoader(true);
     }, aaa);
@@ -43,40 +55,41 @@ export default function ProductCard() {
 
   return (
     <div className="product-card">
-      {!loader ? <Loader /> : (
-        <>
-          <div className="product-container-img">
-            <img src={ hamburguer } alt="hamburguer" />
+      {!loader ? <Loader />
+        : produtos.map((product) => (
+          <div key={ product.id }>
+            <div className="product-container-img">
+              <img src="../../images/becks_600ml" alt={ product.name } />
+            </div>
+            <div className="product-container-info">
+              <h3 className="product-name">{ product.name }</h3>
+              <div className="rating">
+                <img src={ star } alt="star" />
+                <img src={ star } alt="star" />
+                <img src={ star } alt="star" />
+                <img src={ star } alt="star" />
+                <img src={ star } alt="star" />
+              </div>
+              <div className="add-cart-container">
+                <button type="button" onClick={ () => handleDecrement() }>-</button>
+                <span>{ quantity }</span>
+                <button type="button" onClick={ () => handleIncrement() }>+</button>
+              </div>
+              <div className="product-value">
+                <span>
+                  {product.price}
+                </span>
+              </div>
+              <button
+                className="finish-order"
+                type="button"
+                onClick={ () => notify() }
+              >
+                Add to cart
+              </button>
+            </div>
           </div>
-          <div className="product-container-info">
-            <h3 className="product-name">Cheese Burger</h3>
-            <div className="rating">
-              <img src={ star } alt="star" />
-              <img src={ star } alt="star" />
-              <img src={ star } alt="star" />
-              <img src={ star } alt="star" />
-              <img src={ star } alt="star" />
-            </div>
-            <div className="add-cart-container">
-              <button type="button" onClick={ () => handleDecrement() }>-</button>
-              <span>{ quantity }</span>
-              <button type="button" onClick={ () => handleIncrement() }>+</button>
-            </div>
-            <div className="product-value">
-              <span>
-                R$ 20.00
-              </span>
-            </div>
-            <button
-              className="finish-order"
-              type="button"
-              onClick={ () => notify() }
-            >
-              Add to cart
-            </button>
-          </div>
-        </>
-      )}
+        ))}
     </div>
   );
 }
