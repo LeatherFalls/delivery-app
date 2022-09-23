@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import login from '../../services/api';
 import { redirectUser, validationButton } from '../../helper';
 import loginImage from '../../assets/images/signin.jpg';
@@ -12,13 +13,31 @@ export default function LoginHome() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const notify = () => {
+    toast.error(error, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   const userLogin = async () => {
     try {
       const response = await login(email, password);
+      const user = {
+        name: response.name, email, role: response.role, token: response.token };
+      console.log(response);
+      localStorage.setItem('user', JSON.stringify(user));
       redirectUser(response.role, navigate);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      setError(e.message);
+      notify();
     }
   };
 
@@ -27,6 +46,7 @@ export default function LoginHome() {
       <div className="container-login">
         <h2>Sign In</h2>
       </div>
+      <img src="images/brahma_600ml.jpg" alt="não sei" />
       <img src={ loginImage } alt="Login" className="login-image" />
       <div className="login-inputs">
         <input
@@ -44,9 +64,10 @@ export default function LoginHome() {
         <button
           type="button"
           data-testid="common_login__button-login"
-          className="login-button"
           disabled={ !validationButton(email, password) }
-          // className={ validationButton() ? 'login-button' : 'login-button-disabled' }
+          className={
+            validationButton(email, password) ? 'login-button' : 'login-button-disabled'
+          }
           onClick={ userLogin }
         >
           Sign In
@@ -78,13 +99,13 @@ export default function LoginHome() {
             <img src={ facebook } alt="Facebook" />
             <span>Continue with Facebook</span>
           </button>
-          <span
-            className="error-message"
-            data-testid="common_login__element-invalid-email"
-          >
-            Message
-          </span>
         </div>
+        <span
+          className="error-message"
+          data-testid="common_login__element-invalid-email"
+        >
+          Copyright © 2022
+        </span>
       </div>
     </div>
   );
