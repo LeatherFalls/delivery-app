@@ -11,13 +11,6 @@ export default function Products() {
       <h3 className="products-text">Products</h3>
       <div className="products-main">
         <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
       </div>
       <NavBar />
     </div>
