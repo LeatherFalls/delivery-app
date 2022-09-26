@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-// import star from '../../assets/images/star-fav.svg';
+import globalContext from '../../context/globalContext';
 import './styles.css';
 import 'react-toastify/dist/ReactToastify.css';
-// import Loader from '../Loading';
-// import { getProducts } from '../../services/api';
 
 export default function ProductCard({ product }) {
   const { id, name, price, urlImage } = product;
+  const { addProductsForCalculator } = useContext(globalContext);
   const [quantity, setQuantity] = useState(0);
-  // const [loader, setRemoveLoader] = useState(false);
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -26,7 +24,10 @@ export default function ProductCard({ product }) {
     setQuantity(value);
   };
 
-  // const aaa = 2000;
+  useEffect(() => {
+    addProductsForCalculator({ ...product, quantity });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity]);
 
   const notify = () => {
     toast(`${quantity} products are added to cart!`, {
@@ -85,7 +86,6 @@ export default function ProductCard({ product }) {
       >
         Add to cart
       </button>
-
     </div>
   );
 }
