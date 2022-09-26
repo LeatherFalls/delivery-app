@@ -1,8 +1,11 @@
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
-const dotenv = require('dotenv');
+const fs = require('fs');
+// const dotenv = require('dotenv');
 
-dotenv.config();
+// dotenv.config();
+
+const jwtKey = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf-8' });
 
 const validateLogin = (data) => {
   const schema = Joi.object({
@@ -34,7 +37,7 @@ const validateRegister = (data) => {
 const generateToken = (data) => {
   const token = jwt.sign(
     { data },
-    process.env.JWT_SECRET || 'secret',
+    jwtKey || 'secret_key',
     {
       expiresIn: '5d',
       algorithm: 'HS256',
@@ -45,7 +48,7 @@ const generateToken = (data) => {
   
 const validateToken = (token) => {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+      const decoded = jwt.verify(token, jwtKey || 'secret_key');
       return decoded;
     } catch (error) {
       const e = new Error('Invalid token');
