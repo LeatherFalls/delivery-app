@@ -20,19 +20,35 @@ const salesProducts = (sequelize, DataTypes) => {
     tableName: 'sales_products',
   });
 
-  salesProducts.associate = (models) => {
-    models.sales.belongsToMany(models.products, {
+  salesProducts.associate = (db) => {
+    db.sales.belongsToMany(db.products, {
       as: 'products',
-      foreignKey: 'saleId',
-      through: salesProducts,
-      otherKey: 'productId',
-    });
-    models.products.belongsToMany(models.sales, {
-      as: 'sales',
       foreignKey: 'productId',
       through: salesProducts,
       otherKey: 'saleId',
-    });
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   });
+    db.products.belongsToMany(db.sales, {
+      as: 'sales',
+      foreignKey: 'saleId',
+      through: salesProducts,
+      otherKey: 'productId',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   });
+    salesProducts.belongsTo(db.sales, {
+      foreignKey: 'saleId',
+      as: 'saleProducts',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   });
+    salesProducts.belongsTo(db.products, {
+      foreignKey: 'productId',
+      as: 'products',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   });
   };
 
   return salesProducts;

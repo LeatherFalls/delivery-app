@@ -1,9 +1,31 @@
 const Joi = require('joi');
 const { Op } = require('sequelize');
-const { sales } = require('../../database/models');
-const { salesProducts } = require('../../database/models');
-const { users } = require('../../database/models');
-const { products } = require('../../database/models');
+const { sales, salesProducts, users, products } = require('../../database/models');
+
+const includeUser = {
+  model: users,
+  as: 'user',
+  attributes: { exclude: ['id', 'email', 'password', 'role'] },
+};
+
+const includeSeller = {
+  model: users,
+  as: 'seller',
+  attributes: { exclude: ['id', 'email', 'password', 'role'] },
+};
+
+const includeProducts = {
+  model: products,
+  as: 'products',
+  attributes: { exclude: ['id', 'price', 'urlImage'] },
+};
+
+const includeSaleProducts = {
+  model: salesProducts,
+  as: 'saleProducts',
+  attributes: { exclude: ['productId', 'saleId'] },
+  include: [includeProducts],
+};
 
 const saleService = {
   validateSales: (data) => {
@@ -20,6 +42,18 @@ const saleService = {
     });
     
     const { error, value } = schema.validate(data);
+  
+    if (error) throw error;
+  
+    return value;
+  },
+
+  validateSaleId: (id) => {
+    const schema = Joi.object({
+      id: Joi.number().required().positive().integer(),
+    });
+    
+    const { error, value } = schema.validate(id);
   
     if (error) throw error;
   
@@ -63,6 +97,21 @@ const saleService = {
     }
   },
   
+  validateSaleProductsUpdate: (data) => {
+    const schema = Joi.object({
+      productsSale: Joi.array().required().min(1).items(Joi.object({
+        productId: Joi.number().required().positive().integer(),
+        quantity: Joi.number().greater(0).required().positive(),
+      })),
+    });
+    
+    const { error, value } = schema.validate(data);
+  
+    if (error) throw error;
+  
+    return value;
+  },
+
   create: async (data) => {
     const {
       userId, sellerId, totalPrice,
@@ -92,92 +141,57 @@ const saleService = {
   getAll: async () => {
     const allSales = await sales.findAll({
       attributes: { exclude: ['userId', 'sellerId'] },
-      include: [
-        {
-          model: users,
-          as: 'user',
-          attributes: { exclude: ['id', 'email', 'password', 'role'] },
-        },
-        {
-          model: users,
-          as: 'seller',
-          attributes: { exclude: ['id', 'email', 'password', 'role'] },
-        },
-      ],
+      include: [includeUser, includeSeller, includeSaleProducts],
     });
 
     return allSales;
   },
 
-  getAllSalesProducts: async () => {
-    const allSalesProducts = await salesProducts.findAll({
-      attributes: { exclude: ['saleId', 'productId'] },
-      include: [
-        {
-          model: sales,
-          as: 'sales',
-          attributes: { exclude:
-            ['userId', 'sellerId', 'totalPrice', 'deliveryAddress', 'deliveryNumber'] },
-        },
-        {
-          model: products,
-          as: 'products',
-          attributes: { exclude: ['id', 'price', 'urlImage'] },
-        },
-      ],
+  getById: async (id) => {
+    const sale = await sales.findByPk(id, {
+      attributes: { exclude: ['userId', 'sellerId'] },
+      include: [includeUser, includeSeller, includeSaleProducts],
     });
 
-    return allSalesProducts;
+    if (!sale) {
+      const error = new Error('Sale not found');
+      error.name = 'NotFoundError';
+      throw error;
+    }
+
+    return sale;
   },
 
-  // getByName: async (name) => {
-  //   const product = await products.findOne({
-  //     where: {
-  //       name: {
-  //         [Op.like]: `%${name}%`,
-  //       },
-  //    },
-  //   });
+  update: async (saleId, changes) => {
+    const sale = await salesProducts.findOne({ where: { saleId } });
+    console.log(changes);
+    if (!sale) {
+      throw new Error('Sale not found');
+    }
 
-  //   return product;
-  // },
+    await Promise.all(changes
+      .map((change) => {
+        const { productId, quantity } = change;
+        return saleService.updateSaleProducts(saleId, productId, quantity);
+      }));
+  },
 
-  // getById: async (id) => {
-  //   const product = await products.findOne({ where: { id } });
+  updateSaleProducts: async (saleId, productId, quantity) => {
+    await salesProducts.update({ quantity }, {
+      where: { [Op.and]: [{ saleId }, { productId }] },
+    });
+  },
 
-  //   return product;
-  // },
+  delete: async (id) => {
+    const sale = await sales.findOne({ where: { id } });
 
-  // update: async (id, { name, price, urlImage }) => {
-  //   const product = await products.findOne({ where: { id } });
+    if (!sale) {
+      throw new Error('Sale does not exist');
+    }
 
-  //   if (!product) {
-  //     throw new Error('Product does not exist');
-  //   }
-
-  //   const updatedProduct = await products.update(
-  //     {
-  //       name: name || product.name,
-  //       price: price || product.price,
-  //       urlImage: urlImage || product.urlImage,
-  //     },
-  //     { where: { id } },
-  //   );
-
-  //   return updatedProduct;
-  // },
-
-  // delete: async (id) => {
-  //   const product = await products.findOne({ where: { id } });
-
-  //   if (!product) {
-  //     throw new Error('Product does not exist');
-  //   }
-
-  //   const deletedProduct = await products.destroy({ where: { id } });
-
-  //   return deletedProduct;
-  // },
+    await salesProducts.destroy({ where: { saleId: id } });
+    await sale.destroy({ where: { id } });
+  },
 };
 
 module.exports = saleService;
