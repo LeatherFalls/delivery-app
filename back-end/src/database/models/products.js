@@ -22,6 +22,15 @@ const products = (sequelize, DataTypes) => {
        tableName: 'products',
   });
 
+  products.associate = (models) => {
+    products.hasMany(models.salesProducts, {
+      foreignKey: 'productId',
+      as: 'products',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   } );
+  };
+
   return products;
 };
 

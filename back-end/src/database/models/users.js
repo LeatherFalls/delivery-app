@@ -31,11 +31,15 @@ const users = ( sequelize, DataTypes ) => {
     users.hasMany(models.sales, {
       foreignKey: 'userId',
       as: 'user',
-    } );
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   } );
     users.hasMany(models.sales, { 
       foreignKey: 'sellerId',
       as: 'seller', 
-    } );
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   } );
   };
 
   return users;

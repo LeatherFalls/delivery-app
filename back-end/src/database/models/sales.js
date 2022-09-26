@@ -43,11 +43,21 @@ const sales = (sequelize, DataTypes) => {
     sales.belongsTo(models.users, {
       foreignKey: 'userId',
       as: 'user',
-    });
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   });
     sales.belongsTo(models.users, {
       foreignKey: 'sellerId',
       as: 'seller',
-    });
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   });
+    sales.hasMany(models.salesProducts, {
+      foreignKey: 'saleId',
+      as: 'saleProducts',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+   } );
   };
 
   return sales;

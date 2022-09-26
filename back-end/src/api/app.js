@@ -14,6 +14,7 @@ app.use(express.json());
 app.use('/', userRouter);
 app.use('/', productsRouter);
 app.use('/', saleRouter);
+
 app.use(errors);
 
 module.exports = app;
