@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 // import star from '../../assets/images/star-fav.svg';
 import './styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 // import Loader from '../Loading';
-import { getProducts } from '../../services/api';
+// import { getProducts } from '../../services/api';
 
-export default function ProductCard() {
+export default function ProductCard({ product }) {
+  const { id, name, price, urlImage } = product;
   const [quantity, setQuantity] = useState(0);
-  const [produtos, setProdutos] = useState([]);
-
   // const [loader, setRemoveLoader] = useState(false);
 
   const handleIncrement = () => {
@@ -23,29 +23,10 @@ export default function ProductCard() {
   };
 
   const handleChange = ({ target: { value } }) => {
-    // const listProducts = [...produtos];
-    // listProducts[index][name] = value;
     setQuantity(value);
   };
 
   // const aaa = 2000;
-
-  const products = async () => {
-    try {
-      const response = await getProducts();
-      console.log(response);
-      setProdutos(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    products();
-    // setTimeout(() => {
-    //   setRemoveLoader(true);
-    // }, aaa);
-  }, []);
 
   const notify = () => {
     toast(`${quantity} products are added to cart!`, {
@@ -61,60 +42,59 @@ export default function ProductCard() {
 
   return (
     <div>
-      { produtos.map(({ id, name, price, urlImage }, index) => (
-        <div key={ index }>
-          <h3
-            data-testid={ `customer_products__element-card-title-${id}` }
-          >
-            { name }
+      <h3
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
+        { name }
 
-          </h3>
-          <img
-            src={ urlImage }
-            alt={ name }
-            data-testid={ `customer_products__img-card-bg-image-${id}` }
-          />
-          {/* <div className="rating">
-                <img src={ star } alt="star" />
-                <img src={ star } alt="star" />
-                <img src={ star } alt="star" />
-                <img src={ star } alt="star" />
-                <img src={ star } alt="star" />
-              </div> */}
-          <button
-            type="button"
-            onClick={ () => handleDecrement() }
-            data-testid={ `customer_products__button-card-rm-item-${id}` }
-          >
-            -
-          </button>
-          <input
-            type="number"
-            value={ quantity }
-            min={ 0 }
-            onChange={ handleChange }
-            data-testid={ `customer_products__input-card-quantity-${id}` }
-          />
-          <button
-            type="button"
-            onClick={ () => handleIncrement() }
-            data-testid={ `customer_products__button-card-add-item-${id}` }
-          >
-            +
-          </button>
-          <span
-            data-testid={ `customer_products__element-card-price-${id}` }
-          >
-            {`R$ ${String(price).replace('.', ',')}`}
-          </span>
-          <button
-            type="button"
-            onClick={ () => notify() }
-          >
-            Add to cart
-          </button>
-        </div>
-      ))}
+      </h3>
+      <img
+        src={ urlImage }
+        alt={ name }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+      />
+      <button
+        type="button"
+        onClick={ () => handleDecrement() }
+        data-testid={ `customer_products__button-card-rm-item-${id}` }
+      >
+        -
+      </button>
+      <input
+        type="number"
+        value={ quantity }
+        min={ 0 }
+        onChange={ handleChange }
+        data-testid={ `customer_products__input-card-quantity-${id}` }
+      />
+      <button
+        type="button"
+        onClick={ () => handleIncrement() }
+        data-testid={ `customer_products__button-card-add-item-${id}` }
+      >
+        +
+      </button>
+      <span
+        data-testid={ `customer_products__element-card-price-${id}` }
+      >
+        {`R$ ${String(price).replace('.', ',')}`}
+      </span>
+      <button
+        type="button"
+        onClick={ () => notify() }
+      >
+        Add to cart
+      </button>
+
     </div>
   );
 }
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    urlImage: PropTypes.string,
+  }).isRequired,
+};
