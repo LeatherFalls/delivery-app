@@ -35,6 +35,7 @@ export const register = async (name, email, password) => {
 };
 
 export const getProducts = async () => {
+  console.log(JSON.parse(localStorage.getItem('user')).token);
   const response = await api({
     method: 'get',
     headers: {
