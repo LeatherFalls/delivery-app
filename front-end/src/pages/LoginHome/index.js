@@ -46,12 +46,11 @@ export default function LoginHome() {
       <div className="container-login">
         <h2>Sign In</h2>
       </div>
-      <img src="images/brahma_600ml.jpg" alt="não sei" />
       <img src={ loginImage } alt="Login" className="login-image" />
       <div className="login-inputs">
         <input
           type="email"
-          placeholder="Enter Email Id"
+          placeholder="Enter Email"
           data-testid="common_login__input-email"
           onChange={ (e) => setEmail(e.target.value) }
         />
