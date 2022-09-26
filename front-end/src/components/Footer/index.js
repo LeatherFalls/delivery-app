@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import cart from '../../assets/images/cart.svg';
 import home from '../../assets/images/home.svg';
@@ -8,7 +8,7 @@ import './styles.css';
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const [disabled, setDisabled] = useState(false);
+  // const [disabled, setDisabled] = useState(false);
 
   return (
     <footer className="footer-container">
@@ -37,10 +37,9 @@ export default function NavBar() {
           type="image"
           src={ profile }
           alt="Profile"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => setDisabled(!disabled) }
+          onClick={ () => navigate('/customer/profile') }
         />
-        {
+        {/* {
           disabled
             && (
               <>
@@ -60,7 +59,7 @@ export default function NavBar() {
                 />
               </>
             )
-        }
+        } */}
       </div>
     </footer>
   );
