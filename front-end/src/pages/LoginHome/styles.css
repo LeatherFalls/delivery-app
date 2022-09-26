@@ -1,0 +1,137 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.container-login {
+  align-items: center;
+  display: flex;
+  height: 3rem;
+  width: 100%;
+}
+
+.container-login h2 {
+  color: rgb(51, 51, 51);
+  text-align: left;
+}
+
+.login-image {
+  height: 18rem;
+}
+
+.login-inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login-inputs input {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  height: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+
+.login-button {
+
+  /* background-color: rgb(255, 110, 64); */
+  background-color: rgb(116, 198, 149);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.login-button-disabled {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: gray;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.google-login, .facebook-login {
+  border: none;
+}
+
+.google-login img, .facebook-login img {
+  height: 1.5rem;
+}
+
+.login-inputs p {
+  color: rgb(155, 155, 155);
+  font-size: 13px;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+p span {
+  color: rgb(116, 198, 149);
+
+  /* color: rgb(255, 110, 64); */
+  cursor: pointer;
+}
+
+.or-text {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.or-text span {
+  color: rgb(155, 155, 155);
+}
+
+.or-login {
+  width: 100%;
+}
+
+.line-or {
+  border: 0.5px solid rgb(206, 206, 206);
+  height: 0;
+  margin: 1rem;
+  width: 7rem;
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.social-login button {
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  height: 2.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.social-login button span {
+  text-align: center;
+}
+
+.facebook-login {
+  background-color: rgb(59, 89, 152);
+  color: white;
+}
+
+.register-button {
+  background-color: transparent;
+  border: none;
+  color: rgb(116, 198, 149);
+}

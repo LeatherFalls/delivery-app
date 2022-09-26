@@ -15,7 +15,7 @@ module.exports = {
       },
       {
         name: 'Antarctica Pilsen 300ml',
-        price: 2.19,
+        price: 2.49,
         url_image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
       },
       {
@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         name: 'Skol 269ml',
-        price: 1.89,
+        price: 2.19,
         url_image: 'http://localhost:3001/images/skol_269ml.jpg',
       },
       {
@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         name: 'Becks 330ml',
-        price: 4.49,
+        price: 4.99,
         url_image: 'http://localhost:3001/images/becks_330ml.jpg',
       },
       {
