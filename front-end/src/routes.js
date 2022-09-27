@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import LoginHome from './pages/LoginHome';
 import Products from './pages/Products';
+import Orders from './pages/Orders';
 import SignUp from './pages/SignUp';
 
 function AppRoutes() {
@@ -19,7 +20,7 @@ function AppRoutes() {
         element={ <Navigate to="/customer/products" /> }
       />
       <Route path="/customer/products" element={ <Products /> } />
-      <Route path="/customer/orders" element={ <Products /> } />
+      <Route path="/customer/orders" element={ <Orders /> } />
     </Routes>
   );
 }

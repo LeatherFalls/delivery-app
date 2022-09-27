@@ -27,6 +27,8 @@ const includeSaleProducts = {
   include: [includeProducts],
 };
 
+const SALE_NOT_FOUND = 'Sale not found';
+
 const saleService = {
   validateSales: (data) => {
     const schema = Joi.object({
@@ -48,7 +50,7 @@ const saleService = {
     return value;
   },
 
-  validateSaleId: (id) => {
+  validateId: (id) => {
     const schema = Joi.object({
       id: Joi.number().required().positive().integer(),
     });
@@ -147,14 +149,38 @@ const saleService = {
     return allSales;
   },
 
-  getById: async (id) => {
+  getBySaleId: async (id) => {
     const sale = await sales.findByPk(id, {
       attributes: { exclude: ['userId', 'sellerId'] },
       include: [includeUser, includeSeller, includeSaleProducts],
     });
 
     if (!sale) {
-      const error = new Error('Sale not found');
+      const error = new Error(SALE_NOT_FOUND);
+      error.name = 'NotFoundError';
+      throw error;
+    }
+
+    return sale;
+  },
+
+  getByUserId: async (userId) => {
+    const sale = await sales.findAll({ where: { userId } });
+
+    if (!sale) {
+      const error = new Error(SALE_NOT_FOUND);
+      error.name = 'NotFoundError';
+      throw error;
+    }
+
+    return sale;
+  },
+
+  getBySellerId: async (sellerId) => {
+    const sale = await sales.findAll({ where: { sellerId } });
+
+    if (!sale) {
+      const error = new Error(SALE_NOT_FOUND);
       error.name = 'NotFoundError';
       throw error;
     }
@@ -166,7 +192,7 @@ const saleService = {
     const sale = await salesProducts.findOne({ where: { saleId } });
     console.log(changes);
     if (!sale) {
-      throw new Error('Sale not found');
+      throw new Error(SALE_NOT_FOUND);
     }
 
     await Promise.all(changes
@@ -186,7 +212,7 @@ const saleService = {
     const sale = await sales.findOne({ where: { id } });
 
     if (!sale) {
-      throw new Error('Sale does not exist');
+      throw new Error(SALE_NOT_FOUND);
     }
 
     await salesProducts.destroy({ where: { saleId: id } });
