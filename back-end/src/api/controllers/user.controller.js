@@ -1,7 +1,6 @@
 const userService = require('../services/user.service');
 const { validateRegister, validateToken } = require('../services/auth.service');
 const { validateLogin } = require('../services/auth.service');
-const e = require('express');
 
 const userController = {
   login: async (req, res) => {
@@ -27,7 +26,7 @@ const userController = {
 
     if (data.role !== 'administrator') {
       const error = new Error('Only administrators can register new admins and sellers');
-      e.name = 'Unauthorized';
+      error.name = 'Unauthorized';
       throw error;
     }
 
@@ -80,11 +79,11 @@ const userController = {
 
     if (data.role !== 'administrator') {
       const error = new Error('Only administrators can delete admins and sellers');
-      e.name = 'Unauthorized';
+      error.name = 'Unauthorized';
       throw error;
     }
 
-    console.log(data)
+    console.log(data);
 
     await userService.delete(id);
 

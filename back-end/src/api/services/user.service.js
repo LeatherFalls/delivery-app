@@ -29,7 +29,7 @@ const userService = {
     return { token, role: user.role, name: user.name };
   },
 
-  register: async (name, email, password, role) => {
+  register: async (name, email, password) => {
     const user = await users.findOne({ where: { email } });
 
     if (user) {
@@ -42,7 +42,7 @@ const userService = {
       name,
       email,
       password: md5(password),
-      role: role || 'customer',
+      role: 'customer',
     });
     
     const token = generateToken({
