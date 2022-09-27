@@ -26,8 +26,6 @@ export default function ProductCard({ product }) {
     setQuantity(value);
   };
 
-  // const aaa = 2000;
-
   const notify = () => {
     toast(`${quantity} products are added to cart!`, {
       position: 'top-right',
