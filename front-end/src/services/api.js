@@ -47,4 +47,17 @@ export const getProducts = async () => {
   return response.data;
 };
 
+export const getSalesByUserId = async (id) => {
+  console.log(JSON.parse(localStorage.getItem('user')).token);
+  const response = await api({
+    method: 'get',
+    headers: {
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    url: `/sales/user/${id}`,
+  });
+
+  return response.data;
+};
+
 export default login;
