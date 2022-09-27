@@ -22,6 +22,7 @@ const validateRegister = (data) => {
     name: Joi.string().required().min(12),
     email: Joi.string().email().required(),
     password: Joi.string().required().min(6),
+    role: Joi.string(),
   });
 
   const { error, value } = schema.validate(data);
@@ -34,7 +35,7 @@ const validateRegister = (data) => {
 const generateToken = (data) => {
   const token = jwt.sign(
     { data },
-    process.env.JWT_SECRET || 'secret',
+    process.env.JWT_SECRET || 'secret_key',
     {
       expiresIn: '5d',
       algorithm: 'HS256',
@@ -45,7 +46,7 @@ const generateToken = (data) => {
   
 const validateToken = (token) => {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_key');
       return decoded;
     } catch (error) {
       const e = new Error('Invalid token');

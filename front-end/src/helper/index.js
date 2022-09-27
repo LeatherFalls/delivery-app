@@ -25,3 +25,14 @@ export const validateName = (name, email, password) => {
     && (password.length >= minPassword)
     && (name.length >= MIN_LENGTH));
 };
+
+export const validateAll = (name, email, password, role) => {
+  const emailRegex = /\S+@\S+\.\S+/;
+  const minPassword = 6;
+  const MIN_LENGTH = 12;
+  return (
+    (emailRegex.test(email))
+    && (password.length >= minPassword)
+    && (name.length >= MIN_LENGTH))
+    && (role.length > 0);
+};
