@@ -20,10 +20,27 @@ const saleController = {
     return res.status(200).json(allSales);
   },
   
-  getById: async (req, res) => {
-    const { id } = saleService.validateSaleId(req.params);
+  getBySaleId: async (req, res) => {
+    const { id } = saleService.validateId(req.params);
 
-    const sale = await saleService.getById(id);
+    const sale = await saleService.getBySaleId(id);
+
+    return res.status(200).json(sale);
+  },
+
+  getByUserId: async (req, res) => {
+    const { id } = saleService.validateId(req.params);
+
+    console.log(id);
+    const sale = await saleService.getByUserId(id);
+
+    return res.status(200).json(sale);
+  },
+
+  getBySellerId: async (req, res) => {
+    const { id } = saleService.validateId(req.params);
+
+    const sale = await saleService.getBySellerId(id);
 
     return res.status(200).json(sale);
   },
