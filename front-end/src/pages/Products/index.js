@@ -9,6 +9,7 @@ import { getProducts } from '../../services/api';
 export default function Products() {
   const [produtos, setProdutos] = useState([]);
   const navigate = useNavigate();
+  console.log(produtos);
 
   const products = async () => {
     try {
