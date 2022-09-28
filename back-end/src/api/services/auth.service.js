@@ -25,6 +25,7 @@ const validateRegister = (data) => {
     name: Joi.string().required().min(12),
     email: Joi.string().email().required(),
     password: Joi.string().required().min(6),
+    role: Joi.string(),
   });
 
   const { error, value } = schema.validate(data);
