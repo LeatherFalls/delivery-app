@@ -30,8 +30,7 @@ export default function Orders() {
   return (
     <div className="requests-container">
       <Header />
-      <h3 className="requests-text">Pedidos</h3>
-      <div className="requests-main" style={ { paddingBottom: '150px' } }>
+      <div className="requests-main" style={ { paddingBottom: '200px' } }>
         {
           sales.map((sale, index) => (
             <Request
