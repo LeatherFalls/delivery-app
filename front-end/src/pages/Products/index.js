@@ -20,6 +20,7 @@ export default function Products() {
       navigate('/login');
     }
   };
+  console.log(produtos);
 
   useEffect(() => {
     products();
