@@ -125,7 +125,7 @@ const saleService = {
       deliveryAddress,
       deliveryNumber,
       saleDate: Date.now(),
-      status: 'PENDENTE',
+      status: 'Pendente',
     });
     const { id, saleDate, status } = newSale;
     saleService.createProductsSale(id, productsSale);

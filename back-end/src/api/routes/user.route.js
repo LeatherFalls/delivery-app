@@ -15,6 +15,11 @@ userRouter.post(
   userController.register,
 );
 
+userRouter.post(
+  '/register/admin',
+  userController.registerByAdmin,
+);
+
 userRouter.get(
   '/users',
   userController.getAll,

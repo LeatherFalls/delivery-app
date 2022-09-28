@@ -9,6 +9,7 @@ import { getProducts } from '../../services/api';
 export default function Products() {
   const [produtos, setProdutos] = useState([]);
   const navigate = useNavigate();
+  console.log(produtos);
 
   const products = async () => {
     try {
@@ -20,6 +21,7 @@ export default function Products() {
       navigate('/login');
     }
   };
+  console.log(produtos);
 
   useEffect(() => {
     products();
@@ -27,7 +29,7 @@ export default function Products() {
   }, []);
 
   return (
-    <div className="products-container">
+    <div>
       <Header />
       <h3 className="products-text">Products</h3>
       <div className="products-main" style={ { paddingBottom: '150px' } }>

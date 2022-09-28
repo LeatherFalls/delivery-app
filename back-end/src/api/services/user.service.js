@@ -27,7 +27,7 @@ const userService = {
       role: user.role,
     });
 
-    return { token, role: user.role, name: user.name, id: user.id };
+    return { token, id: user.id, role: user.role, name: user.name };
   },
 
   register: async (name, email, password) => {
@@ -44,6 +44,31 @@ const userService = {
       email,
       password: md5(password),
       role: 'customer',
+    });
+    
+    const token = generateToken({
+      id: newUser.id,
+      email: newUser.email,
+      role: newUser.role,
+    });
+    
+    return { token, id: newUser.id, role: newUser.role, name: newUser.name };
+  },
+
+  registerByAdmin: async (name, email, password, role) => {
+    const user = await users.findOne({ where: { email } });
+
+    if (user) {
+      const error = new Error('User already registered');
+      error.name = 'AlreadyRegisteredError';
+      throw error;
+    }
+
+    const newUser = await users.create({
+      name,
+      email,
+      password: md5(password),
+      role: role || 'customer',
     });
     
     const token = generateToken({
@@ -110,7 +135,9 @@ const userService = {
     const user = await users.findOne({ where: { id } });
 
     if (!user) {
-      throw new Error(NOT_FOUND);
+      const error = new Error(NOT_FOUND);
+      error.name = 'NotFoundError';
+      throw error;
     }
 
     await users.destroy({ where: { id } });

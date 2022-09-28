@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import Checkout from './pages/Checkout';
+import Admin from './pages/Admin';
 import LoginHome from './pages/LoginHome';
 import Products from './pages/Products';
 import Orders from './pages/Orders';
@@ -26,6 +28,8 @@ function AppRoutes() {
         element={ <OrdersDetails /> }
       />
       <Route path="/customer/orders" element={ <Orders /> } />
+      <Route path="/customer/checkout" element={ <Checkout /> } />
+      <Route path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
 }

@@ -31,12 +31,12 @@ export default function LoginHome() {
     try {
       const response = await login(email, password);
       const user = {
+        id: response.id,
         name: response.name,
         email,
         role: response.role,
         token: response.token,
-        id: response.id };
-      console.log(response);
+    };
       localStorage.setItem('user', JSON.stringify(user));
       redirectUser(response.role, navigate);
     } catch (e) {

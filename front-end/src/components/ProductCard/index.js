@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import globalContext from '../../context/globalContext';
 import './styles.css';
@@ -29,17 +29,17 @@ export default function ProductCard({ product }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity]);
 
-  const notify = () => {
-    toast(`${quantity} products are added to cart!`, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
+  // const notify = () => {
+  //   toast(`${quantity} products are added to cart!`, {
+  //     position: 'top-right',
+  //     autoClose: 5000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //   });
+  // };
 
   return (
     <div>
@@ -80,12 +80,6 @@ export default function ProductCard({ product }) {
       >
         {`R$ ${String(price).replace('.', ',')}`}
       </span>
-      <button
-        type="button"
-        onClick={ () => notify() }
-      >
-        Add to cart
-      </button>
     </div>
   );
 }

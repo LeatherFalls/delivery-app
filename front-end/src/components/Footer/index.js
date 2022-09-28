@@ -34,7 +34,7 @@ export default function NavBar() {
           data-testid="customer_products__button-cart"
           onClick={ () => navigate('/customer/checkout') }
           disabled={ Number(sumIsLife) === 0 }
-          style={ { width: '25%' } }
+          style={ { width: '5%' } }
         >
           <img src={ cart } alt="cart" />
           <p data-testid="customer_products__checkout-bottom-value">
