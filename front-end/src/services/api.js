@@ -32,15 +32,6 @@ export const register = async (name, email, password) => {
   return response.data;
 };
 
-export const getUsers = async () => {
-  const response = await api({
-    method: 'get',
-    url: '/users',
-  });
-
-  return response.data;
-};
-
 export const registerByAdmin = async (name, email, password, role) => {
   const response = await api({
     method: 'post',
@@ -124,7 +115,7 @@ export const getSallerById = async (id) => {
       authorization: JSON.parse(localStorage.getItem('user')).token,
     },
     url: `/sales/${id}`,
- });
+  });
 
   return response.data;
 };
