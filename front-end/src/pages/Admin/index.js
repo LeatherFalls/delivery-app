@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Input, Select, Users } from '../../components/Admin/Inputs';
+import globalContext from '../../context/globalContext';
 import Header from '../../components/Header';
 import { validateAll } from '../../helper';
 import { registerByAdmin } from '../../services/api';
@@ -10,10 +11,13 @@ export default function Admin() {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
 
+  const { renderUsers } = useContext(globalContext);
+
   const saveUser = async () => {
     try {
       const response = await registerByAdmin(name, email, password, role);
       console.log(response);
+      renderUsers();
     } catch (error) {
       console.log(error);
     }

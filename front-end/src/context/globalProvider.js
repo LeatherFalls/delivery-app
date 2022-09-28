@@ -1,11 +1,33 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import globalContext from './globalContext';
+import { getUsers, deleteUser } from '../services/api';
 
 function MyProvider({ children }) {
   const { Provider } = globalContext;
   const [products, setProducts] = useState([]);
   const [sumIsLife, setSum] = useState(0);
+  const [users, setUsers] = useState([]);
+
+  const renderUsers = async () => {
+    try {
+      const response = await getUsers();
+      console.log(response);
+      setUsers(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const deleteUsers = async (id) => {
+    try {
+      const response = await deleteUser(id);
+      console.log(response);
+      renderUsers();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // const addProductsForCalculator = (product) => {
   //   if (product.quantity > 0 && product.status === 'increment') {
@@ -47,6 +69,9 @@ function MyProvider({ children }) {
     products,
     sumIsLife,
     addProductsForCalculator,
+    users,
+    renderUsers,
+    deleteUsers,
   };
 
   return (
