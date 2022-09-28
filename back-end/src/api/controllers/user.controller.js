@@ -1,5 +1,5 @@
 const userService = require('../services/user.service');
-const { validateRegister } = require('../services/auth.service');
+const { validateRegister, validateToken } = require('../services/auth.service');
 const { validateLogin } = require('../services/auth.service');
 
 const userController = {
@@ -12,9 +12,27 @@ const userController = {
   },
 
   register: async (req, res) => {
-    const { name, email, password } = validateRegister(req.body);
+    const { name, email, password, role } = validateRegister(req.body);
 
-    const token = await userService.register(name, email, password);
+    const token = await userService.register(name, email, password, role);
+
+    return res.status(201).json(token);
+  },
+
+  registerByAdmin: async (req, res) => {
+    const { authorization } = req.headers;
+
+    const { data } = validateToken(authorization);
+
+    if (data.role !== 'administrator') {
+      const error = new Error('Only administrators can register new admins and sellers');
+      error.name = 'Unauthorized';
+      throw error;
+    }
+
+    const { name, email, password, role } = validateRegister(req.body);
+
+    const token = await userService.registerByAdmin(name, email, password, role);
 
     return res.status(201).json(token);
   },
@@ -55,6 +73,17 @@ const userController = {
 
   delete: async (req, res) => {
     const { id } = req.params;
+    const { authorization } = req.headers;
+
+    const { data } = validateToken(authorization);
+
+    if (data.role !== 'administrator') {
+      const error = new Error('Only administrators can delete admins and sellers');
+      error.name = 'Unauthorized';
+      throw error;
+    }
+
+    console.log(data);
 
     await userService.delete(id);
 

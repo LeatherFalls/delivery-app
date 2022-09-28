@@ -52,6 +52,30 @@ const userService = {
     
     return { token, role: newUser.role, name: newUser.name };
   },
+
+  registerByAdmin: async (name, email, password, role) => {
+    const user = await users.findOne({ where: { email } });
+
+    if (user) {
+      const error = new Error('User already registered');
+      error.name = 'AlreadyRegisteredError';
+      throw error;
+    }
+
+    const newUser = await users.create({
+      name,
+      email,
+      password: md5(password),
+      role: role || 'customer',
+    });
+    
+    const token = generateToken({
+      email: newUser.email,
+      role: newUser.role,
+    });
+    
+    return { token, role: newUser.role, name: newUser.name };
+  },
   
   getAll: async () => {
     const allUsers = await users.findAll({ attributes: { exclude: ['password'] } });
@@ -108,7 +132,9 @@ const userService = {
     const user = await users.findOne({ where: { id } });
 
     if (!user) {
-      throw new Error(NOT_FOUND);
+      const error = new Error(NOT_FOUND);
+      error.name = 'NotFoundError';
+      throw error;
     }
 
     await users.destroy({ where: { id } });
