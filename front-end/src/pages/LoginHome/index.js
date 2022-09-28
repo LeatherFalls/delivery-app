@@ -31,8 +31,12 @@ export default function LoginHome() {
     try {
       const response = await login(email, password);
       const user = {
-        name: response.name, email, role: response.role, token: response.token };
-      console.log(response);
+        id: response.id,
+        name: response.name,
+        email,
+        role: response.role,
+        token: response.token,
+      };
       localStorage.setItem('user', JSON.stringify(user));
       redirectUser(response.role, navigate);
     } catch (e) {
