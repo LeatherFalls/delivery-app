@@ -105,13 +105,13 @@ export const getUsers = async () => {
   return response.data;
 };
 
-export const getSallerById = async (id) => {
+export const getSallerByUserId = async (id) => {
   const response = await api({
     method: 'get',
     headers: {
       authorization: JSON.parse(localStorage.getItem('user')).token,
     },
-    url: `/sales/${id}`,
+    url: `/sales/user/${id}`,
   });
 
   return response.data;
