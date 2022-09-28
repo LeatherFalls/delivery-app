@@ -2,7 +2,7 @@ import React from 'react';
 // import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/Footer';
 // import Request from '../../components/Request';
-import './styles.css';
+// import './styles.css';
 import Header from '../../components/Header';
 // import { getSalesByUserId } from '../../services/api';
 
