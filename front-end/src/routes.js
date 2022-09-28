@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import Checkout from './pages/Checkout';
 import LoginHome from './pages/LoginHome';
 import Products from './pages/Products';
 import SignUp from './pages/SignUp';
@@ -19,6 +20,7 @@ function AppRoutes() {
         element={ <Navigate to="/customer/products" /> }
       />
       <Route path="/customer/products" element={ <Products /> } />
+      <Route path="/customer/checkout" element={ <Checkout /> } />
       <Route path="/customer/orders" element={ <Products /> } />
     </Routes>
   );
