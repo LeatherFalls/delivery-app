@@ -4,7 +4,7 @@ import NavBar from '../../components/Footer';
 import Request from '../../components/Request';
 import './styles.css';
 import Header from '../../components/Header';
-import { getSalesByUserId } from '../../services/api';
+import { getSallerByUserId } from '../../services/api';
 
 export default function Orders() {
   const [sales, setSales] = useState([]);
@@ -14,7 +14,7 @@ export default function Orders() {
 
   const salesUser = async () => {
     try {
-      const response = await getSalesByUserId(user.id);
+      const response = await getSallerByUserId(user.id);
       setSales(response);
       console.log(response);
     } catch (e) {
