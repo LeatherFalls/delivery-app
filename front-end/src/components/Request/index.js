@@ -1,5 +1,6 @@
-// import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 // import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import globalContext from '../../context/globalContext';
 import './styles.css';
@@ -8,8 +9,13 @@ import dataFormatada from '../../services/utilities';
 
 export default function Request({ sale }) {
   const { id, status, saleDate, totalPrice } = sale;
+  const navigate = useNavigate();
   return (
-    <div className="request">
+    <button
+      type="button"
+      className="request"
+      onClick={ () => navigate(`/customer/orders/${id}`) }
+    >
       <div className="request-number">
         <span>Pedido </span>
         <span data-testid={ `customer_orders__element-order-id-${id}` }>
@@ -17,7 +23,6 @@ export default function Request({ sale }) {
         </span>
       </div>
       <div className="request-status">
-        <span>Status </span>
         <span data-testid={ `customer_orders__element-delivery-status-${id}` }>
           {status}
         </span>
@@ -36,7 +41,7 @@ export default function Request({ sale }) {
           </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
