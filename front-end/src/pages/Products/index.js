@@ -27,7 +27,7 @@ export default function Products() {
   }, []);
 
   return (
-    <div className="products-container">
+    <div>
       <Header />
       <h3 className="products-text">Products</h3>
       <div className="products-main" style={ { paddingBottom: '150px' } }>
