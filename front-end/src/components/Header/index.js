@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import search from '../../assets/images/search.svg';
 import menu from '../../assets/images/menu.svg';
+import './styles.css';
 
 export default function Header() {
   const navigate = useNavigate();
