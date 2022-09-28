@@ -13,7 +13,6 @@ const login = async (email, password) => {
       password,
     },
   });
-  console.log(response);
 
   return response.data;
 };
@@ -43,8 +42,6 @@ export const registerByAdmin = async (name, email, password, role) => {
       role,
     },
   });
-
-  console.log(response.data);
 
   return response.data;
 };

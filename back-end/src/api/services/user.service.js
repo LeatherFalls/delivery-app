@@ -72,11 +72,12 @@ const userService = {
     });
     
     const token = generateToken({
+      id: newUser.id,
       email: newUser.email,
       role: newUser.role,
     });
     
-    return { token, role: newUser.role, name: newUser.name };
+    return { token, role: newUser.role, name: newUser.name, id: newUser.id };
   },
   
   getAll: async () => {

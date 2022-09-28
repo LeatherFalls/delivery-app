@@ -36,7 +36,7 @@ export default function LoginHome() {
         email,
         role: response.role,
         token: response.token,
-      };
+    };
       localStorage.setItem('user', JSON.stringify(user));
       redirectUser(response.role, navigate);
     } catch (e) {

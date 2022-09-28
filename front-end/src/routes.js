@@ -4,7 +4,9 @@ import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
 import LoginHome from './pages/LoginHome';
 import Products from './pages/Products';
+import Orders from './pages/Orders';
 import SignUp from './pages/SignUp';
+import OrdersDetails from './pages/OrdersDetails';
 
 function AppRoutes() {
   return (
@@ -21,8 +23,12 @@ function AppRoutes() {
         element={ <Navigate to="/customer/products" /> }
       />
       <Route path="/customer/products" element={ <Products /> } />
+      <Route
+        path="/customer/orders/:id"
+        element={ <OrdersDetails /> }
+      />
+      <Route path="/customer/orders" element={ <Orders /> } />
       <Route path="/customer/checkout" element={ <Checkout /> } />
-      <Route path="/customer/orders" element={ <Products /> } />
       <Route path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
