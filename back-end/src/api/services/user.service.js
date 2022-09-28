@@ -22,11 +22,12 @@ const userService = {
     }
 
     const token = generateToken({
+      id: user.id,
       email: user.email,
       role: user.role,
     });
 
-    return { token, role: user.role, name: user.name };
+    return { token, id: user.id, role: user.role, name: user.name };
   },
 
   register: async (name, email, password) => {
@@ -46,11 +47,12 @@ const userService = {
     });
     
     const token = generateToken({
+      id: newUser.id,
       email: newUser.email,
       role: newUser.role,
     });
     
-    return { token, role: newUser.role, name: newUser.name };
+    return { token, id: newUser.id, role: newUser.role, name: newUser.name };
   },
   
   getAll: async () => {
