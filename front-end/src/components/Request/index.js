@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 // import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import globalContext from '../../context/globalContext';
+import globalContext from '../../context/globalContext';
 import './styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 import dataFormatada from '../../services/utilities';
+import { getSaleById } from '../../services/api';
 
 export default function Request({ sale }) {
+  const { setUserSale } = useContext(globalContext);
   const { id, status, saleDate, totalPrice } = sale;
   const navigate = useNavigate();
+
+  const getSale = async (saleId) => {
+    try {
+      const response = await getSaleById(saleId);
+      setUserSale(response);
+    } catch (e) {
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
+    navigate(`/customer/orders/${saleId}`);
+  };
   return (
     <button
       type="button"
       className="request"
-      onClick={ () => navigate(`/customer/orders/${id}`) }
+      onClick={ () => getSale(id) }
     >
       <div className="request-number">
         <span>Pedido </span>
@@ -52,7 +65,7 @@ Request.propTypes = {
     sellerId: PropTypes.number,
     status: PropTypes.string,
     totalPrice: PropTypes.string,
-    saleDate: PropTypes.instanceOf(Date),
+    saleDate: PropTypes.string,
     deliveryAddress: PropTypes.string,
     deliveryNumber: PropTypes.string,
   }).isRequired,

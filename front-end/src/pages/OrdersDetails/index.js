@@ -1,48 +1,104 @@
-import React from 'react';
+import React, { useContext } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/Footer';
-// import Request from '../../components/Request';
 // import './styles.css';
 import Header from '../../components/Header';
-// import { getSalesByUserId } from '../../services/api';
+import globalContext from '../../context/globalContext';
+import dataFormatada from '../../services/utilities';
+
+let statusDataTestId = 'customer_order_details__';
+statusDataTestId = `${statusDataTestId}element-order-details-label-delivery-status`;
 
 export default function OrdersDetails() {
-  // const navigate = useNavigate();
-  // const [sales, setSales] = useState([]);
-  // const navigate = useNavigate();
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // console.log(user);
-
-  // const salesUser = async () => {
-  //   try {
-  //     const response = await getSalesByUserId(user.id);
-  //     setSales(response);
-  //     console.log(response);
-  //   } catch (e) {
-  //     localStorage.removeItem('user');
-  //     navigate('/login');
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   salesUser();
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const { userSale } = useContext(globalContext);
+  console.log(userSale);
 
   return (
     <div className="requests-container">
       <Header />
-      <h3 className="requests-text">Pedido Nº 9999</h3>
-      <div className="requests-main" style={ { paddingBottom: '150px' } }>
-        {/* {
-          sales.map((sale, index) => (
-            <Request
-              key={ index }
-              sale={ sale }
-            />
-          ))
-        } */}
+      <h2>Detalhes Pedido</h2>
+      <div>
+        <h4
+          data-testid="customer_order_details__element-order-details-label-order-id"
+        >
+          { `Pedido: ${userSale.id}` }
+        </h4>
+        <h4
+          data-testid="customer_order_details__element-order-details-label-seller-name"
+        >
+          { `P. Vendedor: ${userSale.seller.name}` }
+        </h4>
+        <h4
+          data-testid="customer_order_details__element-order-details-label-order-date"
+        >
+          { `Data: ${dataFormatada(userSale.saleDate)}` }
+        </h4>
+        <h4
+          data-testid={ statusDataTestId }
+        >
+          { userSale.status }
+        </h4>
+        <button
+          type="button"
+          data-testid="customer_order_details__button-delivery-check"
+        >
+          MARCAR COMO ENTREGUE
+        </button>
       </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+          </tr>
+        </thead>
+        {
+          userSale.saleProducts.map((prod, index) => (
+            <tr key={ index }>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                data-testid={ `customer_checkout__element-order-table-name-${index}` }
+              >
+                {prod.products.name}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-quantity-${index}`
+                }
+              >
+                {prod.quantity}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
+              >
+                {`R$ ${prod.products.price.toString().replace('.', ',')}`}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
+              >
+                {`R$ ${(Number(prod.products.price) * Number(prod.quantity))
+                  .toFixed(2).toString().replace('.', ',')}`}
+              </td>
+            </tr>
+          ))
+        }
+      </table>
+      <h3 data-testid="customer_checkout__element-order-total-price">
+        {`Total: R$ ${userSale.totalPrice.toString().replace('.', ',')}`}
+      </h3>
       <NavBar />
     </div>
   );

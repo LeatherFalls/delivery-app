@@ -93,6 +93,18 @@ export const getSaller = async () => {
   return response.data;
 };
 
+export const getSaleById = async (id) => {
+  const response = await api({
+    method: 'get',
+    headers: {
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    url: `/sales/${id}`,
+  });
+
+  return response.data;
+};
+
 export const getUsers = async () => {
   const response = await api({
     method: 'get',

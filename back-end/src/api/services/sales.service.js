@@ -5,19 +5,19 @@ const { sales, salesProducts, users, products } = require('../../database/models
 const includeUser = {
   model: users,
   as: 'user',
-  attributes: { exclude: ['id', 'email', 'password', 'role'] },
+  attributes: { exclude: ['email', 'password'] },
 };
 
 const includeSeller = {
   model: users,
   as: 'seller',
-  attributes: { exclude: ['id', 'email', 'password', 'role'] },
+  attributes: { exclude: ['email', 'password'] },
 };
 
 const includeProducts = {
   model: products,
   as: 'products',
-  attributes: { exclude: ['id', 'price', 'urlImage'] },
+  attributes: { exclude: ['urlImage'] },
 };
 
 const includeSaleProducts = {
