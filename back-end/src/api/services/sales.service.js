@@ -208,6 +208,12 @@ const saleService = {
     });
   },
 
+  updateSaleStatus: async (id, status) => {
+    await sales.update({ status }, {
+      where: { id },
+    });
+  },
+
   delete: async (id) => {
     const sale = await sales.findOne({ where: { id } });
 
