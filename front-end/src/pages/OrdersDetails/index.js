@@ -1,17 +1,30 @@
 import React, { useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/Footer';
-// import './styles.css';
 import Header from '../../components/Header';
 import globalContext from '../../context/globalContext';
 import dataFormatada from '../../services/utilities';
+import { updateSaleStatus, getSaleById } from '../../services/api';
+// import './styles.css';
 
 let statusDataTestId = 'customer_order_details__';
 statusDataTestId = `${statusDataTestId}element-order-details-label-delivery-status`;
 
 export default function OrdersDetails() {
-  const { userSale } = useContext(globalContext);
-  console.log(userSale);
+  const navigate = useNavigate();
+  const { userSale, setUserSale } = useContext(globalContext);
+
+  const changeSaleStatus = async (id) => {
+    try {
+      const status = 'Entregue';
+      await updateSaleStatus(id, status);
+      const response = await getSaleById(id);
+      setUserSale(response);
+    } catch (e) {
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
+  };
 
   return (
     <div className="requests-container">
@@ -40,6 +53,8 @@ export default function OrdersDetails() {
         </h4>
         <button
           type="button"
+          disabled={ userSale.status === 'Entregue' }
+          onClick={ () => changeSaleStatus(userSale.id) }
           data-testid="customer_order_details__button-delivery-check"
         >
           MARCAR COMO ENTREGUE

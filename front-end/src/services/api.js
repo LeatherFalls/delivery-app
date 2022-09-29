@@ -135,7 +135,7 @@ export const updateSaleStatus = async (id, status) => {
     headers: {
       authorization: JSON.parse(localStorage.getItem('user')).token,
     },
-    url: `/sales/user/${id}`,
+    url: `/sales/${id}`,
     data: { status },
   });
 

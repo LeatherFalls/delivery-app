@@ -64,7 +64,7 @@ const saleService = {
 
   validateSaleStatus: (sale) => {
     const schema = Joi.object({
-      sale: Joi.string().required(),
+      status: Joi.string().required(),
     });
     
     const { error, value } = schema.validate(sale);
@@ -221,12 +221,10 @@ const saleService = {
   },
 
   updateSaleStatus: async (id, status) => {
-    const sale = await sales.update({ status }, {
+    await sales.update({ status }, {
       where: { id },
     });
-
-    return sale;
-  },
+ },
 
   delete: async (id) => {
     const sale = await sales.findOne({ where: { id } });
