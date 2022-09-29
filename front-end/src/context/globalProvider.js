@@ -9,6 +9,7 @@ function MyProvider({ children }) {
   const [sumIsLife, setSum] = useState(0);
   const [users, setUsers] = useState([]);
   const [userSale, setUserSale] = useState({});
+  const [sellerSale, setSellerSale] = useState([]);
 
   const renderUsers = async () => {
     try {
@@ -78,6 +79,8 @@ function MyProvider({ children }) {
     setUserSale,
     renderUsers,
     deleteUsers,
+    sellerSale,
+    setSellerSale,
   };
 
   return (
