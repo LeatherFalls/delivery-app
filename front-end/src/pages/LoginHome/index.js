@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import login from '../../services/api';
@@ -26,6 +26,15 @@ export default function LoginHome() {
       progress: undefined,
     });
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    if (user) {
+      redirectUser(user.role, navigate);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const userLogin = async () => {
     try {
