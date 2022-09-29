@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import globalContext from '../../context/globalContext';
-import { getUsers, postSeller } from '../../services/api';
+import { getSaleById, getUsers, postSeller } from '../../services/api';
 
 export default function CheckoutCard() {
-  const { products, sumIsLife, setProducts } = useContext(globalContext);
+  const { products, sumIsLife, setProducts, setUserSale } = useContext(globalContext);
   const [address, setAdrees] = useState('');
   const [number, setNumber] = useState('');
   const [sellers, setSellers] = useState([]);
   const [sellectedId, setSellectedId] = useState('');
+  console.log(sellectedId);
 
   const navigate = useNavigate();
 
@@ -51,6 +52,8 @@ export default function CheckoutCard() {
     };
     try {
       const newSeller = await postSeller(body);
+      const response = await getSaleById(newSeller.id);
+      setUserSale(response);
       navigate(`/customer/orders/${newSeller.id}`);
     } catch (error) {
       console.log(error);

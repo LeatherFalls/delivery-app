@@ -5,19 +5,19 @@ const { sales, salesProducts, users, products } = require('../../database/models
 const includeUser = {
   model: users,
   as: 'user',
-  attributes: { exclude: ['id', 'email', 'password', 'role'] },
+  attributes: { exclude: ['email', 'password'] },
 };
 
 const includeSeller = {
   model: users,
   as: 'seller',
-  attributes: { exclude: ['id', 'email', 'password', 'role'] },
+  attributes: { exclude: ['email', 'password'] },
 };
 
 const includeProducts = {
   model: products,
   as: 'products',
-  attributes: { exclude: ['id', 'price', 'urlImage'] },
+  attributes: { exclude: ['urlImage'] },
 };
 
 const includeSaleProducts = {
@@ -56,6 +56,18 @@ const saleService = {
     });
     
     const { error, value } = schema.validate(id);
+  
+    if (error) throw error;
+  
+    return value;
+  },
+
+  validateSaleStatus: (sale) => {
+    const schema = Joi.object({
+      status: Joi.string().required(),
+    });
+    
+    const { error, value } = schema.validate(sale);
   
     if (error) throw error;
   
@@ -207,6 +219,12 @@ const saleService = {
       where: { [Op.and]: [{ saleId }, { productId }] },
     });
   },
+
+  updateSaleStatus: async (id, status) => {
+    await sales.update({ status }, {
+      where: { id },
+    });
+ },
 
   delete: async (id) => {
     const sale = await sales.findOne({ where: { id } });
