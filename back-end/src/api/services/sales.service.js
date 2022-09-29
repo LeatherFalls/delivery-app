@@ -62,6 +62,18 @@ const saleService = {
     return value;
   },
 
+  validateSaleStatus: (sale) => {
+    const schema = Joi.object({
+      sale: Joi.string().required(),
+    });
+    
+    const { error, value } = schema.validate(sale);
+  
+    if (error) throw error;
+  
+    return value;
+  },
+
   checkIfExistsArrayOfProductsIds: async (arrayOfId) => {
     const result = await products.findAll({
       where: { id: { [Op.in]: arrayOfId } },
@@ -209,9 +221,11 @@ const saleService = {
   },
 
   updateSaleStatus: async (id, status) => {
-    await sales.update({ status }, {
+    const sale = await sales.update({ status }, {
       where: { id },
     });
+
+    return sale;
   },
 
   delete: async (id) => {

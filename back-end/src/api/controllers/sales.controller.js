@@ -57,10 +57,10 @@ const saleController = {
 
   updateSaleStatus: async (req, res) => {
     const { id } = saleService.validateSaleId(req.params);
-    const { status } = req.body;
-    await saleService.updateSaleStatus(id, status);
+    const { status } = saleService.validateSaleStatus(req.body);
+    const sale = await saleService.updateSaleStatus(id, status);
 
-    return res.status(200).json({ message: 'Status sale updated!' });
+    return res.status(200).json(sale);
   },
 
   delete: async (req, res) => {

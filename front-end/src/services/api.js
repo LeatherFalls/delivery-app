@@ -129,6 +129,19 @@ export const getSallerByUserId = async (id) => {
   return response.data;
 };
 
+export const updateSaleStatus = async (id, status) => {
+  const response = await api({
+    method: 'patch',
+    headers: {
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    url: `/sales/user/${id}`,
+    data: { status },
+  });
+
+  return response.data;
+};
+
 export const deleteUser = async (id) => {
   const response = await api({
     method: 'delete',
