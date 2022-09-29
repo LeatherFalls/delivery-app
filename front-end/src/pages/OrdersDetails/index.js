@@ -53,7 +53,7 @@ export default function OrdersDetails() {
         </h4>
         <button
           type="button"
-          disabled={ userSale.status === 'Entregue' }
+          disabled={ userSale.status !== 'Em transito' }
           onClick={ () => changeSaleStatus(userSale.id) }
           data-testid="customer_order_details__button-delivery-check"
         >
