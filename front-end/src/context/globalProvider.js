@@ -79,8 +79,6 @@ function MyProvider({ children }) {
     deleteUsers,
     userSale,
     setUserSale,
-    renderUsers,
-    deleteUsers,
     sellerSale,
     setSellerSale,
   };

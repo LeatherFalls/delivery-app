@@ -4,7 +4,6 @@ import globalContext from '../../context/globalContext';
 import Header from '../../components/Header';
 import { validateAll } from '../../helper';
 import { registerByAdmin } from '../../services/api';
-import globalContext from '../../context/globalContext';
 
 export default function Admin() {
   const [name, setName] = useState('');
