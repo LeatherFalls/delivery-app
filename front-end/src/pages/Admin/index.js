@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Input, Select, Users } from '../../components/Admin/Inputs';
 import globalContext from '../../context/globalContext';
 import Header from '../../components/Header';
@@ -15,7 +15,9 @@ export default function Admin() {
 
   const saveUser = async () => {
     try {
-      const response = await registerByAdmin(name, email, password, role);
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      console.log(token);
+      const response = await registerByAdmin({ name, email, password, role }, token);
       console.log(response);
       renderUsers();
     } catch (error) {
@@ -70,6 +72,7 @@ export default function Admin() {
               Register
             </button>
             <Users />
+            <h2 data-testid="admin_manage__element-invalid-register">test</h2>
           </div>
         </div>
       </div>

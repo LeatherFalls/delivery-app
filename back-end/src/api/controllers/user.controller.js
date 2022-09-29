@@ -76,15 +76,15 @@ const userController = {
     const { id } = req.params;
     const { authorization } = req.headers;
 
-    const { data } = validateToken(authorization);
+    const payload = validateToken(authorization);
 
-    if (data.role !== 'administrator') {
+    if (payload.data.role !== 'administrator') {
       const error = new Error('Only administrators can delete admins and sellers');
       error.name = 'Unauthorized';
       throw error;
     }
 
-    console.log(data);
+    console.log(payload);
 
     await userService.delete(id);
 

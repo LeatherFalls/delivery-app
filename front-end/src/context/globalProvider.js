@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import globalContext from './globalContext';
-import { getUsers, deleteUser } from '../services/api';
+import { deleteUser, getUsers } from '../services/api';
 
 function MyProvider({ children }) {
   const { Provider } = globalContext;
@@ -75,10 +75,10 @@ function MyProvider({ children }) {
     setProducts,
     addProductsForCalculator,
     users,
-    userSale,
-    setUserSale,
     renderUsers,
     deleteUsers,
+    userSale,
+    setUserSale,
     sellerSale,
     setSellerSale,
   };

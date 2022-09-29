@@ -31,15 +31,15 @@ export const register = async (name, email, password) => {
   return response.data;
 };
 
-export const registerByAdmin = async (name, email, password, role) => {
+export const registerByAdmin = async (data, token) => {
   const response = await api({
     method: 'post',
     url: '/register/admin',
+    headers: {
+      authorization: token,
+    },
     data: {
-      name,
-      email,
-      password,
-      role,
+      ...data,
     },
   });
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import globalContext from '../../../context/globalContext';
 
 export default function Users() {
-  const { deleteUsers, renderUsers, users } = useContext(globalContext);
+  const { users, renderUsers, deleteUsers } = useContext(globalContext);
 
   useEffect(() => {
     renderUsers();
