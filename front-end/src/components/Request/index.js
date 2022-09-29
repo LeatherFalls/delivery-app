@@ -28,6 +28,7 @@ export default function Request({ sale }) {
       type="button"
       className="request"
       onClick={ () => getSale(id) }
+      style={ { width: '10%' } }
     >
       <div className="request-number">
         <span>Pedido </span>

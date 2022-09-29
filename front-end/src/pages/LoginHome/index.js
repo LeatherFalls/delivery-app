@@ -29,7 +29,6 @@ export default function LoginHome() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     if (user) {
       redirectUser(user.role, navigate);
     }
