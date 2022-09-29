@@ -60,33 +60,35 @@ export default function OrdersDetails() {
             <tr key={ index }>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
+                  `customer_order_details__element-order-table-item-number-${index}`
                 }
               >
                 {index + 1}
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-name-${index}` }
+                data-testid={
+                  `customer_order_details__element-order-table-name-${index}`
+                }
               >
                 {prod.products.name}
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-quantity-${index}`
+                  `customer_order_details__element-order-table-quantity-${index}`
                 }
               >
                 {prod.quantity}
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
+                  `customer_order_details__element-order-table-unit-price-${index}`
                 }
               >
                 {`R$ ${prod.products.price.toString().replace('.', ',')}`}
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
+                  `customer_order_details__element-order-table-sub-total-${index}`
                 }
               >
                 {`R$ ${(Number(prod.products.price) * Number(prod.quantity))
@@ -96,7 +98,7 @@ export default function OrdersDetails() {
           ))
         }
       </table>
-      <h3 data-testid="customer_checkout__element-order-total-price">
+      <h3 data-testid="customer_order_details__element-order-total-price">
         {`Total: R$ ${userSale.totalPrice.toString().replace('.', ',')}`}
       </h3>
       <NavBar />
