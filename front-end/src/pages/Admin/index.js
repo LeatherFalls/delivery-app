@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Input, Select, Users } from '../../components/Admin/Inputs';
 import Header from '../../components/Header';
 import { validateAll } from '../../helper';
 import { registerByAdmin } from '../../services/api';
+import globalContext from '../../context/globalContext';
 
 export default function Admin() {
   const [name, setName] = useState('');
@@ -10,10 +11,15 @@ export default function Admin() {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
 
+  const { renderUsers } = useContext(globalContext);
+
   const saveUser = async () => {
     try {
-      const response = await registerByAdmin(name, email, password, role);
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      console.log(token);
+      const response = await registerByAdmin({ name, email, password, role }, token);
       console.log(response);
+      renderUsers();
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +72,7 @@ export default function Admin() {
               Register
             </button>
             <Users />
+            <h2 data-testid="admin_manage__element-invalid-register">test</h2>
           </div>
         </div>
       </div>

@@ -22,9 +22,9 @@ const userController = {
   registerByAdmin: async (req, res) => {
     const { authorization } = req.headers;
 
-    const { data } = validateToken(authorization);
+    const payload = validateToken(authorization);
 
-    if (data.role !== 'administrator') {
+    if (payload.data.role !== 'administrator') {
       const error = new Error('Only administrators can register new admins and sellers');
       error.name = 'Unauthorized';
       throw error;
@@ -34,7 +34,7 @@ const userController = {
 
     const token = await userService.registerByAdmin(name, email, password, role);
 
-    return res.status(201).json(token);
+    return res.status(201).json({ message: "User registered!" });
   },
 
   getAll: async (_req, res) => {
@@ -75,15 +75,15 @@ const userController = {
     const { id } = req.params;
     const { authorization } = req.headers;
 
-    const { data } = validateToken(authorization);
+    const payload = validateToken(authorization);
 
-    if (data.role !== 'administrator') {
+    if (payload.data.role !== 'administrator') {
       const error = new Error('Only administrators can delete admins and sellers');
       error.name = 'Unauthorized';
       throw error;
     }
 
-    console.log(data);
+    console.log(payload);
 
     await userService.delete(id);
 

@@ -1,32 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { deleteUser, getUsers } from '../../../services/api';
+import React, { useContext, useEffect } from 'react';
+import globalContext from '../../../context/globalContext';
 
 export default function Users() {
-  const [users, setUsers] = useState([]);
-
-  const renderUsers = async () => {
-    try {
-      const response = await getUsers();
-      console.log(response);
-      setUsers(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const deleteUsers = async (id) => {
-    try {
-      const response = await deleteUser(id);
-      console.log(response);
-      renderUsers();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const { users, renderUsers, deleteUsers } = useContext(globalContext);
 
   useEffect(() => {
     renderUsers();
   }, []);
+
   return (
     <div className="list-users">
       <h2>List Users</h2>
