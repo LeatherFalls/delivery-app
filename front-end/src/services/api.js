@@ -129,6 +129,18 @@ export const getSallerByUserId = async (id) => {
   return response.data;
 };
 
+export const getSallerBySellerid = async (id) => {
+  const response = await api({
+    method: 'get',
+    headers: {
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    url: `/sales/seller/${id}`,
+  });
+
+  return response.data;
+};
+
 export const updateSaleStatus = async (id, status) => {
   const response = await api({
     method: 'patch',
