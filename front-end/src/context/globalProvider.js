@@ -8,6 +8,8 @@ function MyProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [sumIsLife, setSum] = useState(0);
   const [users, setUsers] = useState([]);
+  const [userSale, setUserSale] = useState({});
+  const [sellerSale, setSellerSale] = useState([]);
 
   const renderUsers = async () => {
     try {
@@ -48,11 +50,13 @@ function MyProvider({ children }) {
     const teste = products.filter((item) => item.id !== product.id);
     if (product.quantity === 0) {
       setProducts([...teste]);
+    } else {
+      setProducts([...teste, product]);
     }
-    setProducts([...teste, product]);
   };
 
   const calculatorProducts = () => {
+    console.log(products);
     const sum = products.reduce((acc, curr) => {
       const { quantity, price } = curr;
       return acc + (quantity * price);
@@ -68,10 +72,17 @@ function MyProvider({ children }) {
   const value = {
     products,
     sumIsLife,
+    setProducts,
     addProductsForCalculator,
     users,
     renderUsers,
     deleteUsers,
+    userSale,
+    setUserSale,
+    renderUsers,
+    deleteUsers,
+    sellerSale,
+    setSellerSale,
   };
 
   return (

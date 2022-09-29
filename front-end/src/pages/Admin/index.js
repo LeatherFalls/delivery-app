@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Input, Select, Users } from '../../components/Admin/Inputs';
+import globalContext from '../../context/globalContext';
 import Header from '../../components/Header';
 import { validateAll } from '../../helper';
 import { registerByAdmin } from '../../services/api';

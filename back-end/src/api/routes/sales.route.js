@@ -7,8 +7,11 @@ const routeSale = '/sales';
 
 saleRouter.post(routeSale, saleController.create);
 saleRouter.get(routeSale, saleController.getAll);
-saleRouter.get(`${routeSale}/:id`, saleController.getById);
+saleRouter.get(`${routeSale}/seller/:id`, saleController.getBySellerId);
+saleRouter.get(`${routeSale}/user/:id`, saleController.getByUserId);
+saleRouter.get(`${routeSale}/:id`, saleController.getBySaleId);
 saleRouter.put(`${routeSale}/:id`, saleController.update);
+saleRouter.patch(`${routeSale}/:id`, saleController.updateSaleStatus);
 saleRouter.delete(`${routeSale}/:id`, saleController.delete);
 
 module.exports = saleRouter;

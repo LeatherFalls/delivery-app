@@ -23,6 +23,7 @@ const userController = {
     const { authorization } = req.headers;
 
     const payload = validateToken(authorization);
+    console.log(payload);
 
     if (payload.data.role !== 'administrator') {
       const error = new Error('Only administrators can register new admins and sellers');
@@ -32,9 +33,9 @@ const userController = {
 
     const { name, email, password, role } = validateRegister(req.body);
 
-    const token = await userService.registerByAdmin(name, email, password, role);
+    await userService.registerByAdmin(name, email, password, role);
 
-    return res.status(201).json({ message: "User registered!" });
+    return res.status(201).json({ message: 'User created successfully' });
   },
 
   getAll: async (_req, res) => {

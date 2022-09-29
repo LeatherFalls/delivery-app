@@ -20,16 +20,33 @@ const saleController = {
     return res.status(200).json(allSales);
   },
   
-  getById: async (req, res) => {
-    const { id } = saleService.validateSaleId(req.params);
+  getBySaleId: async (req, res) => {
+    const { id } = saleService.validateId(req.params);
 
-    const sale = await saleService.getById(id);
+    const sale = await saleService.getBySaleId(id);
+
+    return res.status(200).json(sale);
+  },
+
+  getByUserId: async (req, res) => {
+    const { id } = saleService.validateId(req.params);
+
+    console.log(id);
+    const sale = await saleService.getByUserId(id);
+
+    return res.status(200).json(sale);
+  },
+
+  getBySellerId: async (req, res) => {
+    const { id } = saleService.validateId(req.params);
+
+    const sale = await saleService.getBySellerId(id);
 
     return res.status(200).json(sale);
   },
 
   update: async (req, res) => {
-    const { id } = saleService.validateSaleId(req.params);
+    const { id } = saleService.validateId(req.params);
     const { productsSale } = saleService.validateSaleProductsUpdate(req.body);
     const arryaOfId = productsSale.map((prod) => prod.productId);
     await saleService.checkIfExistsArrayOfProductsIds(arryaOfId); 
@@ -38,8 +55,16 @@ const saleController = {
     return res.status(200).json({ message: 'Products sale updated!' });
   },
 
+  updateSaleStatus: async (req, res) => {
+    const { id } = saleService.validateId(req.params);
+    const { status } = saleService.validateSaleStatus(req.body);
+    await saleService.updateSaleStatus(id, status);
+
+    return res.status(200).json({ message: 'Status sale updated!' });
+  },
+
   delete: async (req, res) => {
-    const { id } = saleService.validateSaleId(req.params);
+    const { id } = saleService.validateId(req.params);
 
     await saleService.delete(id);
 
