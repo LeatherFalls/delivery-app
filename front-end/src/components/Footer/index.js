@@ -11,7 +11,6 @@ export default function NavBar() {
   const navigate = useNavigate();
   const { sumIsLife } = useContext(globalContext);
   const user = JSON.parse(localStorage.getItem('user'));
-  // const [disabled, setDisabled] = useState(false);
 
   const ordersPath = () => {
     if (user.role === 'seller') navigate('/seller/orders');
