@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/Footer';
 import Request from '../../components/Request';
-// import './styles.css';
 import Header from '../../components/Header';
 import { getSallerByUserId } from '../../services/api';
 
@@ -10,7 +9,6 @@ export default function Orders() {
   const [sales, setSales] = useState([]);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
 
   const salesUser = async () => {
     try {

@@ -101,7 +101,6 @@ export const getSaleById = async (id) => {
     },
     url: `/sales/${id}`,
   });
-
   return response.data;
 };
 
@@ -129,7 +128,7 @@ export const getSallerByUserId = async (id) => {
   return response.data;
 };
 
-export const getSallerBySellerid = async (id) => {
+export const getSallerBySellerId = async (id) => {
   const response = await api({
     method: 'get',
     headers: {

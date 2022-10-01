@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import globalContext from './globalContext';
-import { deleteUser, getUsers } from '../services/api';
+import { deleteUser, getUsers, getSaleById, updateSaleStatus } from '../services/api';
 
 function MyProvider({ children }) {
   const { Provider } = globalContext;
   const [products, setProducts] = useState([]);
   const [sumIsLife, setSum] = useState(0);
   const [users, setUsers] = useState([]);
-  const [userSale, setUserSale] = useState({});
-  const [sellerSale, setSellerSale] = useState([]);
+  const [querySale, setQuerySale] = useState({});
+  const navigate = useNavigate();
 
   const renderUsers = async () => {
     try {
       const response = await getUsers();
-      console.log(response);
       setUsers(response);
     } catch (e) {
       console.log(e);
@@ -23,24 +23,12 @@ function MyProvider({ children }) {
 
   const deleteUsers = async (id) => {
     try {
-      const response = await deleteUser(id);
-      console.log(response);
+      await deleteUser(id);
       renderUsers();
     } catch (e) {
       console.log(e);
     }
   };
-
-  // const addProductsForCalculator = (product) => {
-  //   if (product.quantity > 0 && product.status === 'increment') {
-  //     setProducts([...products, product]);
-  //     setSum(sumIsLife + (Number(product.price) * product.quantity));
-  //   }
-  //   if (product.quantity >= 0 && product.status === 'decrement') {
-  //     setSum(sumIsLife - (Number(product.price) * (product.quantity + 1)));
-  //   }
-  //   console.log(sumIsLife);
-  // };
 
   const addProductsForCalculator = (product) => {
     const ifExist = products.some((item) => item.id === product.id);
@@ -56,12 +44,38 @@ function MyProvider({ children }) {
   };
 
   const calculatorProducts = () => {
-    console.log(products);
     const sum = products.reduce((acc, curr) => {
       const { quantity, price } = curr;
       return acc + (quantity * price);
     }, 0);
     setSum(sum.toFixed(2));
+  };
+
+  const getSale = async (saleId, type) => {
+    try {
+      const response = await getSaleById(saleId);
+      console.log(response);
+      setQuerySale(response);
+      if (type === 'user') {
+        navigate(`/customer/orders/${saleId}`);
+      } else {
+        navigate(`/seller/orders/${saleId}`);
+      }
+    } catch (e) {
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
+  };
+
+  const changeSaleStatus = async (id, status = 'Entregue') => {
+    try {
+      await updateSaleStatus(id, status);
+      const response = await getSaleById(id);
+      setQuerySale(response);
+    } catch (e) {
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
   };
 
   useEffect(() => {
@@ -77,10 +91,10 @@ function MyProvider({ children }) {
     users,
     renderUsers,
     deleteUsers,
-    userSale,
-    setUserSale,
-    sellerSale,
-    setSellerSale,
+    querySale,
+    setQuerySale,
+    getSale,
+    changeSaleStatus,
   };
 
   return (

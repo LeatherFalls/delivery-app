@@ -1,30 +1,15 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/Footer';
 import Header from '../../components/Header';
 import globalContext from '../../context/globalContext';
 import dataFormatada from '../../services/utilities';
-import { updateSaleStatus, getSaleById } from '../../services/api';
-// import './styles.css';
 
 let statusDataTestId = 'customer_order_details__';
 statusDataTestId = `${statusDataTestId}element-order-details-label-delivery-status`;
 
 export default function OrdersDetails() {
-  const navigate = useNavigate();
-  const { userSale, setUserSale } = useContext(globalContext);
-
-  const changeSaleStatus = async (id) => {
-    try {
-      const status = 'Entregue';
-      await updateSaleStatus(id, status);
-      const response = await getSaleById(id);
-      setUserSale(response);
-    } catch (e) {
-      localStorage.removeItem('user');
-      navigate('/login');
-    }
-  };
+  const { querySale, changeSaleStatus } = useContext(globalContext);
+  const maskNumberSale = 4;
 
   return (
     <div className="requests-container">
@@ -34,27 +19,27 @@ export default function OrdersDetails() {
         <h4
           data-testid="customer_order_details__element-order-details-label-order-id"
         >
-          { `Pedido: ${userSale.id}` }
+          { `Pedido: ${querySale.id.toString().padStart(maskNumberSale, '0')}` }
         </h4>
         <h4
           data-testid="customer_order_details__element-order-details-label-seller-name"
         >
-          { `P. Vendedor: ${userSale.seller.name}` }
+          { `P. Vendedor: ${querySale.seller.name}` }
         </h4>
         <h4
           data-testid="customer_order_details__element-order-details-label-order-date"
         >
-          { `Data: ${dataFormatada(userSale.saleDate)}` }
+          { `Data: ${dataFormatada(querySale.saleDate)}` }
         </h4>
         <h4
           data-testid={ statusDataTestId }
         >
-          { userSale.status }
+          { querySale.status }
         </h4>
         <button
           type="button"
-          disabled={ userSale.status !== 'Em Trânsito' }
-          onClick={ () => changeSaleStatus(userSale.id) }
+          disabled={ querySale.status !== 'Em Trânsito' }
+          onClick={ () => changeSaleStatus(querySale.id) }
           data-testid="customer_order_details__button-delivery-check"
         >
           MARCAR COMO ENTREGUE
@@ -71,7 +56,7 @@ export default function OrdersDetails() {
           </tr>
         </thead>
         {
-          userSale.saleProducts.map((prod, index) => (
+          querySale.saleProducts.map((prod, index) => (
             <tr key={ index }>
               <td
                 data-testid={
@@ -114,7 +99,7 @@ export default function OrdersDetails() {
         }
       </table>
       <h3 data-testid="customer_order_details__element-order-total-price">
-        {`Total: R$ ${userSale.totalPrice.toString().replace('.', ',')}`}
+        {`Total: R$ ${querySale.totalPrice.toString().replace('.', ',')}`}
       </h3>
       <NavBar />
     </div>

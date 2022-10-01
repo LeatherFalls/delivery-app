@@ -1,29 +1,26 @@
 import React, { useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/Footer';
 import Header from '../../components/Header';
 import globalContext from '../../context/globalContext';
-import { getSaleById, updateSaleStatus } from '../../services/api';
 import dataFormatada from '../../services/utilities';
 
 let statusDataTestId = 'seller_order_details__';
 statusDataTestId = `${statusDataTestId}element-order-details-label-delivery-status`;
 
 export default function OrdersDetails() {
-//   const navigate = useNavigate();
-  const { sellerSale, setSellerSale } = useContext(globalContext);
+  const { querySale, changeSaleStatus } = useContext(globalContext);
+  const maskNumberSale = 4;
 
-  const changeSaleStatus = async (id, status) => {
-    try {
-      await updateSaleStatus(id, status);
-      const response = await getSaleById(id);
-      setSellerSale(response);
-    } catch (e) {
-      console.log(e);
-    //   localStorage.removeItem('user');
-    //   navigate('/login');
-    }
-  };
+  // const changeSaleStatus = async (id, status) => {
+  //   try {
+  //     await updateSaleStatus(id, status);
+  //     const response = await getSaleById(id);
+  //     setQuerySale(response);
+  //   } catch (e) {
+  //     localStorage.removeItem('user');
+  //     navigate('/login');
+  //   }
+  // };
 
   return (
     <div className="requests-container">
@@ -33,32 +30,34 @@ export default function OrdersDetails() {
         <h4
           data-testid="seller_order_details__element-order-details-label-order-id"
         >
-          { `Pedido: ${sellerSale.id}` }
+          { `Pedido: ${querySale.id.toString().padStart(maskNumberSale, '0')}` }
         </h4>
         <h4
           data-testid="seller_order_details__element-order-details-label-order-date"
         >
-          { `Data: ${dataFormatada(sellerSale.saleDate)}` }
+          { `Data: ${dataFormatada(querySale.saleDate)}` }
         </h4>
         <h4
           data-testid={ statusDataTestId }
         >
-          { sellerSale.status }
+          { querySale.status }
         </h4>
         <button
           type="button"
           disabled={
-            sellerSale.status === 'Preparando' || sellerSale.status === 'Entregue'
+            querySale.status !== 'Pendente'
           }
-          onClick={ () => changeSaleStatus(sellerSale.id, 'Preparando') }
+          onClick={ () => changeSaleStatus(querySale.id, 'Preparando') }
           data-testid="seller_order_details__button-preparing-check"
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
-          disabled={ sellerSale.status !== 'Preparando' }
-          onClick={ () => changeSaleStatus(sellerSale.id, 'Em Trânsito') }
+          disabled={
+            querySale.status !== 'Preparando'
+          }
+          onClick={ () => changeSaleStatus(querySale.id, 'Em Trânsito') }
           data-testid="seller_order_details__button-dispatch-check"
         >
           SAIU PARA ENTREGA
@@ -75,7 +74,7 @@ export default function OrdersDetails() {
           </tr>
         </thead>
         {
-          sellerSale.saleProducts.map((prod, index) => (
+          querySale.saleProducts.map((prod, index) => (
             <tr key={ index }>
               <td
                 data-testid={
@@ -118,7 +117,7 @@ export default function OrdersDetails() {
         }
       </table>
       <h3 data-testid="seller_order_details__element-order-total-price">
-        {`Total: R$ ${sellerSale.totalPrice.toString().replace('.', ',')}`}
+        {`Total: R$ ${querySale.totalPrice.toString().replace('.', ',')}`}
       </h3>
       <NavBar />
     </div>
