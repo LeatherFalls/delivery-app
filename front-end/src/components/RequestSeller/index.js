@@ -1,38 +1,24 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import globalContext from '../../context/globalContext';
-import { getSaleById } from '../../services/api';
 import dataFormatada from '../../services/utilities';
 
 export default function RequestSeller({ sale }) {
-  const { setSellerSale } = useContext(globalContext);
+  const { getSale } = useContext(globalContext);
   const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = sale;
-  const navigate = useNavigate();
+  const maskNumberSale = 4;
 
-  const numeroMAGICOEUMAPORRA = 4;
-  const getSale = async (saleId) => {
-    try {
-      const response = await getSaleById(saleId);
-      setSellerSale(response);
-    } catch (e) {
-      console.log(e);
-    //   localStorage.removeItem('user');
-    //   navigate('/login');
-    }
-    navigate(`/seller/orders/${saleId}`);
-  };
   return (
     <button
       type="button"
       className="request"
-      onClick={ () => getSale(id) }
+      onClick={ () => getSale(id, 'seller') }
       style={ { width: '10%' } }
     >
       <div className="request-number">
         <span>Pedido </span>
         <span data-testid={ `seller_orders__element-order-id-${id}` }>
-          {id.toString().padStart(numeroMAGICOEUMAPORRA, '0')}
+          {id.toString().padStart(maskNumberSale, '0')}
         </span>
       </div>
       <div className="request-status">
