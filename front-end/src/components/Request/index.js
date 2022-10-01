@@ -1,39 +1,26 @@
 import React, { useContext } from 'react';
-// import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import globalContext from '../../context/globalContext';
 import './styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 import dataFormatada from '../../services/utilities';
-import { getSaleById } from '../../services/api';
 
 export default function Request({ sale }) {
-  const { setUserSale } = useContext(globalContext);
+  const { getSale } = useContext(globalContext);
   const { id, status, saleDate, totalPrice } = sale;
-  const navigate = useNavigate();
+  const maskNumberSale = 4;
 
-  const getSale = async (saleId) => {
-    try {
-      const response = await getSaleById(saleId);
-      setUserSale(response);
-    } catch (e) {
-      localStorage.removeItem('user');
-      navigate('/login');
-    }
-    navigate(`/customer/orders/${saleId}`);
-  };
   return (
     <button
       type="button"
       className="request"
-      onClick={ () => getSale(id) }
+      onClick={ () => getSale(id, 'user') }
       style={ { width: '10%' } }
     >
       <div className="request-number">
         <span>Pedido </span>
         <span data-testid={ `customer_orders__element-order-id-${id}` }>
-          {id}
+          {id.toString().padStart(maskNumberSale, '0')}
         </span>
       </div>
       <div className="request-status">
