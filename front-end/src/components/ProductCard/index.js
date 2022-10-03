@@ -44,13 +44,6 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="product-card">
-      <h3
-        className="product-name"
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
-        { name }
-
-      </h3>
       <div className="product-container-img">
         <img
           src={ urlImage }
@@ -58,35 +51,47 @@ export default function ProductCard({ product }) {
           data-testid={ `customer_products__img-card-bg-image-${id}` }
         />
       </div>
-      <span
+      <h3
+        className="product-name"
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
+        { name }
+
+      </h3>
+      {/*       <span
         data-testid={ `customer_products__element-card-price-${id}` }
       >
         {`R$ ${String(price).replace('.', ',')}`}
-      </span>
+      </span> */}
       <div className="product-container-info">
-        <button
+        {/* <button
           className="dash-cart"
           type="button"
           onClick={ () => handleDecrement() }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
           <BsCartDash className="bs-cart" />
-        </button>
-        <input
+        </button> */}
+        {/*         <input
           className="add-cart-container"
           type="number"
           value={ quantity }
           min={ 0 }
           onChange={ handleChange }
           data-testid={ `customer_products__input-card-quantity-${id}` }
-        />
+        /> */}
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          {`R$${String(price).replace('.', ',')}`}
+        </span>
         <button
           className="plus-cart"
           type="button"
           onClick={ () => handleIncrement() }
           data-testid={ `customer_products__button-card-add-item-${id}` }
         >
-          <BsCartPlus className="bs-cart" />
+          +
         </button>
       </div>
     </div>

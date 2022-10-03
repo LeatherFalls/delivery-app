@@ -20,9 +20,13 @@
 }
 
 .products-text {
-  border-bottom: 1px solid rgb(116, 198, 149);
   color: rgb(50, 50, 50);
-  margin: 0 0 2rem 2rem;
+  margin-bottom: 2rem;
   padding-bottom: 0.5rem;
-  width: fit-content;
+  text-align: center;
+}
+
+.test {
+  position: absolute;
+  transform: translate(50%, 50%);
 }

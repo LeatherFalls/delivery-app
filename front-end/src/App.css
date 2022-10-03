@@ -1,3 +1,9 @@
+:root {
+  --font-color: rgb(58, 58, 58);
+  --addcart-background: rgb(19, 78, 223);
+  --border-color: rgb(230, 230, 230);
+}
+
 .App {
   align-items: center;
   background: #0fa36b;
