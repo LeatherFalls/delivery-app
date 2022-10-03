@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import cart from '../../assets/images/cart.svg';
+import {
+  BsFillBagCheckFill,
+  BsFillHouseDoorFill,
+  BsPersonCircle,
+  BsCart,
+  BsCartFill } from 'react-icons/bs';
+// import cart from '../../assets/images/cart.svg';
 import globalContext from '../../context/globalContext';
-import home from '../../assets/images/home.svg';
-import order from '../../assets/images/order-list.svg';
-import profile from '../../assets/images/person.svg';
+// import home from '../../assets/images/home.svg';
+// import order from '../../assets/images/order-list.svg';
+// import profile from '../../assets/images/person.svg';
 import './styles.css';
 
 export default function NavBar() {
@@ -23,48 +29,66 @@ export default function NavBar() {
         {
           user.role === 'seller'
             ? (
-              <input
-                type="image"
-                src={ order }
-                alt="Order"
+              <button
+                type="button"
                 data-testid="customer_products__element-navbar-link-orders"
+                className="button-sales"
                 onClick={ ordersPath }
-              />
+              >
+                <BsFillBagCheckFill />
+              </button>
             )
             : (
               <>
-                <input
-                  type="image"
-                  src={ home }
-                  alt="Home"
+                <button
+                  type="button"
                   data-testid="customer_products__element-navbar-link-products"
+                  className="button-footer"
                   onClick={ () => navigate('/customer/products') }
-                />
-                <input
-                  type="image"
-                  src={ order }
-                  alt="Order"
+                >
+                  <BsFillHouseDoorFill />
+                </button>
+                <button
+                  type="button"
                   data-testid="customer_products__element-navbar-link-orders"
+                  className="button-footer"
                   onClick={ ordersPath }
-                />
+                >
+                  <BsFillBagCheckFill />
+                </button>
                 <button
                   type="submit"
                   data-testid="customer_products__button-cart"
                   onClick={ () => navigate('/customer/checkout') }
                   disabled={ Number(sumIsLife) === 0 }
-                  style={ { width: '5%' } }
+                  className="button-footer"
+                  // style={ { width: '5%' } }
                 >
-                  <img src={ cart } alt="cart" />
-                  <p data-testid="customer_products__checkout-bottom-value">
-                    {`R$ ${String(sumIsLife).replace('.', ',')}`}
-                  </p>
+                  {
+                    Number(sumIsLife) === 0
+                      ? (
+                        <BsCart />
+                      )
+                      : (
+                        <div className="box-full-cart">
+                          <BsCartFill className="full-cart" />
+                          <p
+                            data-testid="customer_products__checkout-bottom-value"
+                            className="value-cart"
+                          >
+                            {`R$ ${String(sumIsLife).replace('.', ',')}`}
+                          </p>
+                        </div>
+                      )
+                  }
                 </button>
-                <input
-                  type="image"
-                  src={ profile }
-                  alt="Profile"
+                <button
+                  type="button"
+                  className="button-footer"
                   onClick={ () => navigate('/customer/profile') }
-                />
+                >
+                  <BsPersonCircle />
+                </button>
               </>
             )
         }
