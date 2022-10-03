@@ -1,3 +1,15 @@
-.search-and-profile img {
-  width: 10%;
+.search-and-profile {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 2rem 0;
+}
+
+.search-and-profile input, .header-search {
+  color: var(--font-color);
+  height: 2rem;
+}
+
+.search-and-profile h5 {
+  color: var(--font-color);
 }

@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BsFillBasket2Fill } from 'react-icons/bs';
-import globalContext from '../../context/globalContext';
 import NavBar from '../../components/Footer';
 import ProductCard from '../../components/ProductCard';
 import './styles.css';
@@ -12,8 +10,6 @@ export default function Products() {
   const [produtos, setProdutos] = useState([]);
   const navigate = useNavigate();
   console.log(produtos);
-
-  const { sumIsLife } = useContext(globalContext);
 
   const products = async () => {
     try {
@@ -36,7 +32,7 @@ export default function Products() {
     <div>
       <Header />
       <h3 className="products-text">Products</h3>
-      <div className="products-main" style={ { paddingBottom: '150px' } }>
+      <div className="products-main">
         {
           produtos.map((produto, index) => (
             <ProductCard
@@ -46,27 +42,6 @@ export default function Products() {
           ))
         }
       </div>
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        onClick={ () => navigate('/customer/checkout') }
-        disabled={ Number(sumIsLife) === 0 }
-      >
-        <div className="box-full-cart">
-          <BsFillBasket2Fill />
-          {/*           {
-            Number(sumIsLife) !== 0
-            && (
-              <p
-                data-testid="customer_products__checkout-bottom-value"
-                className="test"
-              >
-                {`R$ ${String(sumIsLife).replace('.', ',')}`}
-              </p>
-            )
-          } */}
-        </div>
-      </button>
       <NavBar />
     </div>
   );

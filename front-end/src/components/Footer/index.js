@@ -62,7 +62,6 @@ export default function NavBar() {
                   onClick={ () => navigate('/customer/checkout') }
                   disabled={ Number(sumIsLife) === 0 }
                   className="button-footer"
-                  // style={ { width: '5%' } }
                 >
                   {
                     Number(sumIsLife) === 0

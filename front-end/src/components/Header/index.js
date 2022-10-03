@@ -26,7 +26,7 @@ export default function Header() {
         >
           {user.name}
         </h5>
-        <img src={ search } alt="search" />
+        <img src={ search } alt="search" className="header-search" />
       </div>
     </header>
   );

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BsCartPlus, BsCartDash } from 'react-icons/bs';
 // import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import globalContext from '../../context/globalContext';
@@ -21,9 +20,9 @@ export default function ProductCard({ product }) {
     }
   };
 
-  const handleChange = ({ target: { value } }) => {
+  /*   const handleChange = ({ target: { value } }) => {
     setQuantity(value);
-  };
+  }; */
 
   useEffect(() => {
     addProductsForCalculator({ ...product, quantity });
@@ -64,22 +63,14 @@ export default function ProductCard({ product }) {
         {`R$ ${String(price).replace('.', ',')}`}
       </span> */}
       <div className="product-container-info">
-        {/* <button
-          className="dash-cart"
+        <button
+          className="plus-cart"
           type="button"
           onClick={ () => handleDecrement() }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
-          <BsCartDash className="bs-cart" />
-        </button> */}
-        {/*         <input
-          className="add-cart-container"
-          type="number"
-          value={ quantity }
-          min={ 0 }
-          onChange={ handleChange }
-          data-testid={ `customer_products__input-card-quantity-${id}` }
-        /> */}
+          -
+        </button>
         <span
           data-testid={ `customer_products__element-card-price-${id}` }
         >

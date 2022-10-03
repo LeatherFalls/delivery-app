@@ -3,15 +3,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: 3rem;
+  padding-bottom: 5rem;
   width: 100vw;
-}
-
-.search-and-profile {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
 }
 
 .search-and-profile img {
@@ -20,13 +13,22 @@
 }
 
 .products-text {
-  color: rgb(50, 50, 50);
-  margin-bottom: 2rem;
-  padding-bottom: 0.5rem;
+  color: var(--font-color);
   text-align: center;
 }
 
 .test {
-  position: absolute;
-  transform: translate(50%, 50%);
+  background-color: black;
+  border: none;
+  border-radius: 100%;
+  bottom: 8rem;
+  height: 3rem;
+  position: fixed;
+  right: 1.5rem;
+  width: 3rem;
+}
+
+.test svg {
+  color: white;
+  height: 2rem;
 }
