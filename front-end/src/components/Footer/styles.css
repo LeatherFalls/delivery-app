@@ -23,7 +23,7 @@
   box-shadow: 0 -25px 0 0 rgb(116, 198, 149);
   content: '';
   height: 50px;
-  left: 91%;
+  left: 97.6%;
   position: absolute;
   top: -50px;
   transform: rotate(180deg);
@@ -37,7 +37,37 @@
   padding: 1.3rem 2rem;
 }
 
-.footer-content input {
-  filter: invert();
-  height: 1.5rem;
+.footer-content button {
+  height: 3rem;
+}
+
+.button-footer {
+  font-size: 50px;
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+.button-footer p {
+  font-size: 10px;
+}
+
+.full-cart {
+  position: relative;
+}
+
+.value-cart {
+  position: absolute;
+  color: white;
+  font-weight: 900;
+  background-color: rgb(104, 9, 117);
+  padding: 3px;
+  border-radius: 25px;
+}
+
+.box-full-cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
