@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { BsCartPlus, BsCartDash } from 'react-icons/bs';
 // import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import globalContext from '../../context/globalContext';
@@ -42,44 +43,52 @@ export default function ProductCard({ product }) {
   // };
 
   return (
-    <div>
+    <div className="product-card">
       <h3
+        className="product-name"
         data-testid={ `customer_products__element-card-title-${id}` }
       >
         { name }
 
       </h3>
-      <img
-        src={ urlImage }
-        alt={ name }
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-      />
-      <button
-        type="button"
-        onClick={ () => handleDecrement() }
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-      >
-        -
-      </button>
-      <input
-        type="number"
-        value={ quantity }
-        min={ 0 }
-        onChange={ handleChange }
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-      />
-      <button
-        type="button"
-        onClick={ () => handleIncrement() }
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-      >
-        +
-      </button>
+      <div className="product-container-img">
+        <img
+          src={ urlImage }
+          alt={ name }
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+        />
+      </div>
       <span
         data-testid={ `customer_products__element-card-price-${id}` }
       >
         {`R$ ${String(price).replace('.', ',')}`}
       </span>
+      <div className="product-container-info">
+        <button
+          className="dash-cart"
+          type="button"
+          onClick={ () => handleDecrement() }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+        >
+          <BsCartDash className="bs-cart" />
+        </button>
+        <input
+          className="add-cart-container"
+          type="number"
+          value={ quantity }
+          min={ 0 }
+          onChange={ handleChange }
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+        />
+        <button
+          className="plus-cart"
+          type="button"
+          onClick={ () => handleIncrement() }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+        >
+          <BsCartPlus className="bs-cart" />
+        </button>
+      </div>
     </div>
   );
 }
