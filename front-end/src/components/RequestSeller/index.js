@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import globalContext from '../../context/globalContext';
 import dataFormatada from '../../services/utilities';
+import '../Request/styles.css';
 
 export default function RequestSeller({ sale }) {
   const { getSale } = useContext(globalContext);
@@ -13,7 +14,6 @@ export default function RequestSeller({ sale }) {
       type="button"
       className="request"
       onClick={ () => getSale(id, 'seller') }
-      style={ { width: '10%' } }
     >
       <div className="request-number">
         <span>Pedido </span>

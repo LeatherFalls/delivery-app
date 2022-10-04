@@ -1,0 +1,40 @@
+h4 {
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: 16px;
+  margin: 2rem 0 0 2rem;
+}
+
+.requests-container {
+  padding-bottom: 5rem;
+}
+
+.customer-address {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  padding: 2rem;
+}
+
+.delivery-check {
+  background-color: var(--addcart-background);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  height: 2.5rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.total-order {
+  font-size: 12px;
+  margin-left: 2rem;
+}
+
+.table-content-seller td {
+  font-size: 12px;
+}

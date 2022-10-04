@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import NavBar from '../../components/Footer';
 import Header from '../../components/Header';
 import globalContext from '../../context/globalContext';
 import dataFormatada from '../../services/utilities';
+import './styles.css';
 
 let statusDataTestId = 'customer_order_details__';
 statusDataTestId = `${statusDataTestId}element-order-details-label-delivery-status`;
@@ -11,11 +13,24 @@ export default function OrdersDetails() {
   const { querySale, changeSaleStatus } = useContext(globalContext);
   const maskNumberSale = 4;
 
+  const notify = () => {
+    changeSaleStatus(querySale.id);
+    toast.done('Status alterado com sucesso!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   return (
     <div className="requests-container">
       <Header />
       <h2>Detalhes Pedido</h2>
-      <div>
+      <div className="customer-address">
         <h4
           data-testid="customer_order_details__element-order-details-label-order-id"
         >
@@ -39,8 +54,9 @@ export default function OrdersDetails() {
         <button
           type="button"
           disabled={ querySale.status !== 'Em Trânsito' }
-          onClick={ () => changeSaleStatus(querySale.id) }
+          onClick={ () => notify() }
           data-testid="customer_order_details__button-delivery-check"
+          className="delivery-check"
         >
           MARCAR COMO ENTREGUE
         </button>
@@ -57,8 +73,9 @@ export default function OrdersDetails() {
         </thead>
         {
           querySale.saleProducts.map((prod, index) => (
-            <tr key={ index }>
+            <tr key={ index } className="table-content-seller">
               <td
+                id="test-seller"
                 data-testid={
                   `customer_order_details__element-order-table-item-number-${index}`
                 }
@@ -98,7 +115,10 @@ export default function OrdersDetails() {
           ))
         }
       </table>
-      <h3 data-testid="customer_order_details__element-order-total-price">
+      <h3
+        data-testid="customer_order_details__element-order-total-price"
+        className="total-order"
+      >
         {`Total: R$ ${querySale.totalPrice.toString().replace('.', ',')}`}
       </h3>
       <NavBar />

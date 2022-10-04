@@ -6,11 +6,17 @@
   width: 100%;
 }
 
-.back-to-login {
+.sign-up {
+  margin: 0;
+}
 
-  /* color: rgb(255, 110, 64); */
-  color: rgb(116, 198, 149);
-  width: 100%;
+.back-to-login {
+  background-color: transparent;
+  border: none;
+  color: var(--addcart-background);
+  font-weight: 700;
+  transform: translateX(-2.5rem);
+  width: 6rem;
 }
 
 .container-signup {

@@ -15,7 +15,11 @@ export default function Request({ sale }) {
       type="button"
       className="request"
       onClick={ () => getSale(id, 'user') }
-      style={ { width: '10%' } }
+      style={
+        status === 'Pendente'
+          ? { borderBottom: '1px solid rgb(211, 36, 36)' }
+          : { borderBottom: '1px solid green' }
+      }
     >
       <div className="request-number">
         <span>Pedido </span>
@@ -24,19 +28,22 @@ export default function Request({ sale }) {
         </span>
       </div>
       <div className="request-status">
-        <span data-testid={ `customer_orders__element-delivery-status-${id}` }>
+        <span
+          data-testid={ `customer_orders__element-delivery-status-${id}` }
+          className="request-status-text"
+        >
           {status}
         </span>
       </div>
       <div className="request-info">
         <div className="request-date">
-          <span>Data Pedido </span>
+          <span>Data Pedido: </span>
           <span data-testid={ `customer_orders__element-order-date-${id}` }>
             {dataFormatada(saleDate)}
           </span>
         </div>
         <div className="request-value">
-          <span>Valor Pedido </span>
+          <span>Valor Pedido: </span>
           <span data-testid={ `customer_orders__element-card-price-${id}` }>
             {`R$ ${String(totalPrice).replace('.', ',')}`}
           </span>

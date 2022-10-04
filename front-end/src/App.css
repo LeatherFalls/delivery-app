@@ -4,6 +4,10 @@
   --border-color: rgb(236, 236, 236);
 }
 
+h1, h2, h3, h4, h5, h6, p, span {
+  font-weight: 400;
+}
+
 .App {
   align-items: center;
   background: #0fa36b;
@@ -58,3 +62,14 @@
     transform: rotate(-10deg);
   }
 }
+
+.button-sales {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: var(--font-color);
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+

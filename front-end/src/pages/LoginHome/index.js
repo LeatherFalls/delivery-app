@@ -56,7 +56,7 @@ export default function LoginHome() {
   return (
     <div className="container">
       <div className="container-login">
-        <h2>Sign In</h2>
+        <h2 className="sign-up">Sign In</h2>
       </div>
       <img src={ loginImage } alt="Login" className="login-image" />
       <div className="login-inputs">

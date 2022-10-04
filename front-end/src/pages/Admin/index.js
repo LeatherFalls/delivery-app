@@ -4,6 +4,7 @@ import globalContext from '../../context/globalContext';
 import Header from '../../components/Header';
 import { validateAll } from '../../helper';
 import { registerByAdmin } from '../../services/api';
+import './styles.css';
 
 export default function Admin() {
   const [name, setName] = useState('');
@@ -68,13 +69,19 @@ export default function Admin() {
               data-testid="admin_manage__button-register"
               disabled={ !validateAll(name, email, password, role) }
               onClick={ saveUser }
+              className="admin-register-button"
             >
               Register
             </button>
-            <Users />
-            <h2 data-testid="admin_manage__element-invalid-register">test</h2>
           </div>
         </div>
+        <Users />
+        <h2
+          data-testid="admin_manage__element-invalid-register"
+          className="error-message"
+        >
+          Copyright © 2022
+        </h2>
       </div>
     </>
   );

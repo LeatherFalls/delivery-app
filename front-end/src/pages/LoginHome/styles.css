@@ -38,7 +38,7 @@
 .login-button {
 
   /* background-color: rgb(255, 110, 64); */
-  background-color: rgb(116, 198, 149);
+  background-color: var(--addcart-background);
   border: none;
   border-radius: 10px;
   color: white;
@@ -70,13 +70,6 @@
   font-size: 13px;
   margin: 0.5rem 0;
   text-align: center;
-}
-
-p span {
-  color: rgb(116, 198, 149);
-
-  /* color: rgb(255, 110, 64); */
-  cursor: pointer;
 }
 
 .or-text {
@@ -133,5 +126,14 @@ p span {
 .register-button {
   background-color: transparent;
   border: none;
-  color: rgb(116, 198, 149);
+  color: var(--addcart-background);
+}
+
+.error-message {
+  bottom: 0;
+  font-size: 12px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  width: 100%;
 }

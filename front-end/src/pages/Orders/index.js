@@ -4,6 +4,7 @@ import NavBar from '../../components/Footer';
 import Request from '../../components/Request';
 import Header from '../../components/Header';
 import { getSallerByUserId } from '../../services/api';
+import './styles.css';
 
 export default function Orders() {
   const [sales, setSales] = useState([]);
@@ -28,7 +29,7 @@ export default function Orders() {
   return (
     <div className="requests-container">
       <Header />
-      <div className="requests-main" style={ { paddingBottom: '200px' } }>
+      <div className="requests-orders">
         {
           sales.map((sale, index) => (
             <Request

@@ -1,0 +1,60 @@
+.register-user {
+  color: var(--font-color);
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.register-user h2 {
+  font-size: 12px;
+  margin: 2rem;
+  width: 5rem;
+}
+
+.register-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2rem;
+  width: 80%;
+}
+
+.register-inputs label {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.admin-register-button {
+  background-color: var(--addcart-background);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  height: 2.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+select {
+  width: 11.4rem;
+}
+
+input, select {
+  outline: none;
+}
+
+.list-users h2 {
+  font-size: 12px;
+  margin: 2rem;
+  width: 5rem;
+}
+
+.tr-users {
+  font-size: 6px;
+}

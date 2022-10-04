@@ -3,6 +3,7 @@ import NavBar from '../../components/Footer';
 import Header from '../../components/Header';
 import globalContext from '../../context/globalContext';
 import dataFormatada from '../../services/utilities';
+import './styles.css';
 
 let statusDataTestId = 'seller_order_details__';
 statusDataTestId = `${statusDataTestId}element-order-details-label-delivery-status`;
@@ -23,10 +24,10 @@ export default function OrdersDetails() {
   // };
 
   return (
-    <div className="requests-container">
+    <div className="requests-container-seller">
       <Header />
-      <h2>Detalhes Pedido</h2>
-      <div>
+      <h2 className="details-title">Detalhes Pedido</h2>
+      <div className="order-seller">
         <h4
           data-testid="seller_order_details__element-order-details-label-order-id"
         >
@@ -44,6 +45,7 @@ export default function OrdersDetails() {
         </h4>
         <button
           type="button"
+          className="delivery-check"
           disabled={
             querySale.status !== 'Pendente'
           }
@@ -57,13 +59,14 @@ export default function OrdersDetails() {
           disabled={
             querySale.status !== 'Preparando'
           }
+          className="delivered-check"
           onClick={ () => changeSaleStatus(querySale.id, 'Em Trânsito') }
           data-testid="seller_order_details__button-dispatch-check"
         >
           SAIU PARA ENTREGA
         </button>
       </div>
-      <table>
+      <table className="seller-details-table">
         <thead>
           <tr>
             <th>Item</th>
@@ -75,7 +78,7 @@ export default function OrdersDetails() {
         </thead>
         {
           querySale.saleProducts.map((prod, index) => (
-            <tr key={ index }>
+            <tr key={ index } className="testando">
               <td
                 data-testid={
                   `seller_order_details__element-order-table-item-number-${index}`

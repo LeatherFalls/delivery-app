@@ -1,0 +1,44 @@
+.requests-container-seller {
+  color: var(--font-color);
+}
+
+.details-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 1.5rem 0 1.5rem 2rem;
+}
+
+.order-seller {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  padding: 2rem;
+  padding-top: 0;
+}
+
+.order-seller button {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  height: 2.5rem;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.delivered-check {
+  background-color: rgb(70, 202, 70);
+}
+
+.delivered-check:disabled {
+  background-color: var(--border-color);
+}
+
+.seller-details-table thead tr th {
+  font-size: 10px;
+}
+
+.testando td {
+  font-size: 9px;
+}

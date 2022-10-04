@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import search from '../../assets/images/search.svg';
-import menu from '../../assets/images/menu.svg';
+import exit from '../../assets/images/exit.svg';
 import './styles.css';
 
 export default function Header() {
@@ -16,12 +16,13 @@ export default function Header() {
       <div className="search-and-profile">
         <input
           type="image"
-          src={ menu }
+          src={ exit }
           alt="avatar"
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ logout }
         />
         <h5
+          className="username"
           data-testid="customer_products__element-navbar-user-full-name"
         >
           {user.name}

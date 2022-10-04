@@ -22,7 +22,7 @@ export default function Users() {
           </tr>
           {
             users.map((user, index) => (
-              <tr key={ index }>
+              <tr key={ index } className="tr-users">
                 <td
                   data-testid={ `admin_manage__element-user-table-item-number-${index}` }
                 >
@@ -48,8 +48,9 @@ export default function Users() {
                     type="button"
                     data-testid={ `admin_manage__element-user-table-remove-${index}` }
                     onClick={ () => deleteUsers(user.id) }
+                    className="order-remove-button"
                   >
-                    Delete
+                    X
                   </button>
                 </td>
               </tr>

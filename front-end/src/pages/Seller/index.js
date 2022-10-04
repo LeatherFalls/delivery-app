@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { getSallerBySellerId } from '../../services/api';
 import RequestSeller from '../../components/RequestSeller';
+import './styles.css';
 
 export default function Seller() {
   const [sales, setSales] = useState([]);
@@ -29,14 +30,16 @@ export default function Seller() {
   return (
     <div>
       <Header />
-      {
-        sales.map((sale, index) => (
-          <RequestSeller
-            key={ index }
-            sale={ sale }
-          />
-        ))
-      }
+      <div className="requests-orders">
+        {
+          sales.map((sale, index) => (
+            <RequestSeller
+              key={ index }
+              sale={ sale }
+            />
+          ))
+        }
+      </div>
       <Footer />
     </div>
   );

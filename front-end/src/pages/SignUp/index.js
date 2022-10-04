@@ -26,15 +26,15 @@ export default function SignUp() {
   return (
     <div className="container">
       <div className="content">
-        <button
-          type="button"
-          onClick={ () => navigate('/products') }
-          className="back-to-login"
-        >
-          {'<'}
-        </button>
         <div className="container-signup">
-          <h2>Sign Up</h2>
+          <button
+            type="button"
+            onClick={ () => navigate('/login') }
+            className="back-to-login"
+          >
+            {'<'}
+          </button>
+          <h2 className="sign-up">Sign Up</h2>
         </div>
       </div>
       <img src={ signUpImage } alt="Sign Up" className="login-image" />
@@ -82,7 +82,7 @@ export default function SignUp() {
           className="error-message"
           data-testid="common_register__element-invalid_register"
         >
-          Message
+          Copyright © 2022
         </span>
       </div>
     </div>

@@ -1,0 +1,9 @@
+.requests-orders {
+  padding-bottom: 5rem;
+}
+
+.button-sales {
+  background-color: transparent;
+  border: none;
+  color: var(--font-color);
+}

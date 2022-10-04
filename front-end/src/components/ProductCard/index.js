@@ -73,6 +73,7 @@ export default function ProductCard({ product }) {
         </button>
         <span
           data-testid={ `customer_products__element-card-price-${id}` }
+          className="product-price"
         >
           {`R$${String(price).replace('.', ',')}`}
         </span>

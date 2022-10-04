@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import globalContext from '../../context/globalContext';
 import { getSaleById, getUsers, postSeller } from '../../services/api';
+import './styles.css';
 
 export default function CheckoutCard() {
   const { products, sumIsLife, setProducts, setQuerySale } = useContext(globalContext);
@@ -67,8 +68,8 @@ export default function CheckoutCard() {
   };
 
   return (
-    <div>
-      <h4>Finalizar Pedido</h4>
+    <div className="checkout-container">
+      <h4 className="order-title">Finalizar Pedido</h4>
       <table>
         <thead>
           <tr>
@@ -118,18 +119,22 @@ export default function CheckoutCard() {
                   type="button"
                   data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                   onClick={ () => removeProduct(product.id) }
+                  className="order-remove-button"
                 >
-                  Remover
+                  X
                 </button>
               </td>
             </tr>
           ))
         }
       </table>
-      <h3 data-testid="customer_checkout__element-order-total-price">
+      <h3
+        data-testid="customer_checkout__element-order-total-price"
+        className="order-total-price"
+      >
         {`Total: R$ ${sumIsLife.toString().replace('.', ',')}`}
       </h3>
-      <div>
+      <div className="address-container">
         <label htmlFor="1">
           P.Vendedora Responsavel
           <select
@@ -178,6 +183,7 @@ export default function CheckoutCard() {
           type="button"
           data-testid="customer_checkout__button-submit-order"
           onClick={ handleClick }
+          className="order-button"
         >
           Finalizar Pedido
         </button>

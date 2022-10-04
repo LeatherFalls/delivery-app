@@ -1,5 +1,4 @@
-.requests-main {
-  border: solid 1px red;
-  display: flex;
-  width: 1080px;
+.requests-orders {
+  padding: 2rem;
+  padding-bottom: 0;
 }
